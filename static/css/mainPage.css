@@ -1,0 +1,211 @@
+.fullBody {
+    margin-left: 18%;
+    margin-right: 18%;
+    margin-top: 2%;
+    
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sidebar {
+    width: 18%;
+    height: auto;
+    float: left;
+    background-color: rgb(97, 187, 223);
+}
+
+.mainContent {
+    width: 80%;
+    height: 100%;
+    float: left;
+    margin-left: 2%;
+    
+}
+li a {
+  color: inherit;
+  text-decoration: none;
+}
+.top-menu {
+    height: 40px;
+    background: linear-gradient(to bottom, #FFFFFF, #D3D3D3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.menu-titles {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+    background-color: #dbdada;
+}
+
+.menu-titles a {
+    color: #fff;
+    font-size: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+ul {
+    list-style: none;
+    margin-bottom: 20%;
+    padding-left: 30px;
+  }
+
+  .group-title {
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 10%;
+  }
+
+  li {
+    padding-bottom: 5%;
+    font-size: 12px;
+  }
+
+
+
+  .mainBaner {
+    margin-top: 3%;
+    width:100%;
+    height:200px;
+    background-color: bisque;
+  }
+
+  .middleContent {
+    margin-top: 3%;
+    width:100%;
+    height:250px;
+  }
+
+  .middleLeft {
+    width: 18%;
+    height: 100%;
+    float: left;
+  }
+
+  .profile {
+    width: 100%;
+    height: 77%;
+    border-radius: 5%;
+    float: left;
+    background-color: aliceblue;
+  }
+
+  .profileIcon {
+    width: 60%;
+    height: 60%;
+    margin-left: 20%;
+    margin-top: 5%;
+  }
+
+  .profileName {
+    width: 60%;
+    height: 15%;
+    margin-left: 20%;
+    margin-top: 5%;
+    text-align: center;
+    
+  }
+
+  .profileButton button {
+    border-radius: 20%;
+    border: none;
+    margin-left: 33%;
+    
+  }
+ 
+
+  .bottomButton {
+    margin-top: 2%;
+    width: 100%;
+    height: 21%;
+    border-radius: 5%;
+    float: left;
+    background-color: aliceblue;
+  }
+
+  .middleRight {
+    width: 80%;
+    height: 100%;
+    margin-left: 2%;
+    float: left;
+     
+  }
+
+  .fourMenu {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: aliceblue;
+
+  }
+
+  .insideMenu {
+    width: 20%;
+    height: 80%;
+    float:left;
+    margin: 2%;
+    background-color: rgb(255, 255, 255);
+    padding: 0 20px 0px 20px;
+    
+  }
+
+  h1 {
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  h2 {
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .searchbar {
+    width: 100%;
+    height: 40%;
+    margin-top: 3%;
+    background-color: aliceblue;
+  }
+
+  .searchBox {
+    width:80%;
+    height: 70%;
+    float: left;
+  }
+
+  input {
+    width: 82%;
+    height: 50%;
+    border: none;
+    margin-top: 32px;
+    margin-left: 50px;
+    
+  }
+
+  .searchButton {
+    
+    float: left;
+    width: 20%;
+    height: 100%;
+  }
+  .searchButton button {
+    background-color: rgb(200, 235, 236);
+    float: left;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+
+

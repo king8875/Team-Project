@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" style="user-select: auto;">
+<link rel="shortcut icon" type="image/x-icon" href="https://pybo.kr/static/img/favicon.ico" style="user-select: auto;">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" href="./유저프로파일_files/bootstrap.min.css" style="user-select: auto;">
+<!-- pybo CSS -->
+<link rel="stylesheet" type="text/css" href="./유저프로파일_files/style.css" style="user-select: auto;">
+<!-- Font Awesome JS -->
+
+<div class="col-md-9 col-lg-9">
+    <div class="container mt-3" style="user-select: auto;">
+        <div class="row" style="user-select: auto;">
+            <div class="col-sm-12 col-md-9 col-lg-10 p-2" style="user-select: auto;">
+                <div id="content" class="border-top border-secondary" style="user-select: auto;">
+                    <div class="content_block" style="user-select: auto;">
+
+
+                        <h5 class="border-bottom pb-2 mb-3" style="user-select: auto;">{{ user.username }}</h5>
+                        <ul class="nav nav-tabs" style="user-select: auto;">
+                            <li class="nav-item" style="user-select: auto;">
+                                <a class="nav-link active" href="{% url 'pybo:user_profile' %}" style="user-select: auto;">기본정보</a>
+                            </li>
+                            <li class="nav-item" style="user-select: auto;">
+                                <a class="nav-link " href="{% url 'pybo:user_question' %}" style="user-select: auto;">게시판</a>
+                            </li>
+                            <li class="nav-item" style="user-select: auto;">
+                                <a class="nav-link " href="{% url 'pybo:user_answer' %}" style="user-select: auto;">답변</a>
+                            </li>
+                            <li class="nav-item" style="user-select: auto;">
+                                <a class="nav-link " href="{% url 'pybo:user_comment' %}" style="user-select: auto;">댓글</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h2 style="padding-bottom: 10%;"> Edit Profile </h2>
+                    <div>
+                        <div>
+                            <h6>First Name</h6>
+                            <input type="text" placeholder="{{ user.username }}" onblur="this.placeholder" style="width: 40%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585;  " />
+                        </div>
+                        <div>
+                            <h6>Last Name</h6>
+                            <input style="width: 40%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585" />
+                        </div>
+                        <div>
+                            <h6>E-mail</h6>
+                            <input type="text" placeholder="{{ user.email }}" style="width: 60%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585" />
+                            <h6>Address</h6>
+                            <input style="width: 60%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585" />
+                            <h6>Contact Number</h6>
+                            <input style="width: 60%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585" />
+                            <h6>Password</h6>
+                            <input style="width: 60%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585" />
+                        </div>
+
+                        <div style="display: inline-block; float: right;">
+                            <button type="button" style="background: #FFFFFF; border-color: #5429ff; color: #5429ff; border-radius: 5px;"  > Cancel </button>
+                            <button type="button" style="background: #5429ff; color: #ffffff; border-radius: 5px;"  > Save </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- jQuery JS -->
+<script src="./유저프로파일_files/jquery-3.4.1.min.js.download" style="user-select: auto;"></script>
+<!-- Bootstrap JS -->
+<script src="./유저프로파일_files/popper.min.js.download" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous" style="user-select: auto;"></script>
+<script src="./유저프로파일_files/bootstrap.min.js.download" style="user-select: auto;"></script>
+
+
+
+
+<!-- 자바스크립트 Start -->
+<script type="text/javascript" style="user-select: auto;">
+    $(document).ready(function(){
+        $(".page-link").on('click', function() {
+            $("#page").val($(this).data("page"));
+            $("#searchForm").submit();
+        });
+
+        $(".so").on('click', function() {
+            $("#so").val($(this).data("so"));
+            $("#page").val(1);
+            $("#searchForm").submit();
+        });
+
+        var profile_id = "1431";
+        var user_id = "None";
+        if(profile_id == user_id) {
+            $(".profile-link").addClass("active");
+        }
+
+        $('.so').tooltip();
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+
+
+<!-- 자바스크립트 End -->
+
+{% endblock %}

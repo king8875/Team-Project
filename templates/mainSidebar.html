@@ -1,0 +1,232 @@
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+
+
+<div class="flex-shrink-0 p-3 " style="width: 280px; background-color: rgb(225, 225, 225); ">
+    <!-- <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+      <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+      <span class="fs-5 fw-semibold">Collapsible</span>
+    </a> -->
+    <ul class="list-unstyled ps-0">
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+          채널/커뮤니티
+        </button>
+        <div class="collapse show" id="home-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="http://127.0.0.1:8000/pybo/channelCommunity/list/" class="link-dark d-inline-flex text-decoration-none rounded">채널 목록</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/channelCommunity/create/" class="link-dark d-inline-flex text-decoration-none rounded">채널 생성</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/channelCommunity/medicalCase/" class="link-dark d-inline-flex text-decoration-none rounded">Medical-case</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/channelCommunity/schedule/" class="link-dark d-inline-flex text-decoration-none rounded">스케줄</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
+          그룹
+        </button>
+        <div class="collapse show" id="dashboard-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="http://127.0.0.1:8000/pybo/group/list/" class="link-dark d-inline-flex text-decoration-none rounded">그룹 목록</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/group/forum/" class="link-dark d-inline-flex text-decoration-none rounded">포럼</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/group/create/" class="link-dark d-inline-flex text-decoration-none rounded">그룹생성</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+          Board
+        </button>
+        <div class="collapse show" id="orders-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="http://127.0.0.1:8000/pybo/board/news/" class="link-dark d-inline-flex text-decoration-none rounded">News</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/board/medicalInfo/" class="link-dark d-inline-flex text-decoration-none rounded">Medical info</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/board/etc/" class="link-dark d-inline-flex text-decoration-none rounded">Etc.</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+          Chat gpt
+        </button>
+        <div class="collapse show" id="orders-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="http://127.0.0.1:8000/pybo/chatgpt/search/" class="link-dark d-inline-flex text-decoration-none rounded">Search</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/chatgpt/relatedInformationSearch/" class="link-dark d-inline-flex text-decoration-none rounded">Related Information Search</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/chatgpt/etc/" class="link-dark d-inline-flex text-decoration-none rounded">Etc.</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+          .
+        </button>
+        <div class="collapse show" id="orders-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="http://127.0.0.1:8000/pybo/registration/medicalUser/" class="link-dark d-inline-flex text-decoration-none rounded">.</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/registration/publicUser/" class="link-dark d-inline-flex text-decoration-none rounded">.</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/registration/etc/" class="link-dark d-inline-flex text-decoration-none rounded">.</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+          .
+        </button>
+        <div class="collapse show" id="orders-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="http://127.0.0.1:8000/pybo/aiCheck/createData" class="link-dark d-inline-flex text-decoration-none rounded">.</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/aiCheck/createPHR" class="link-dark d-inline-flex text-decoration-none rounded">.</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/aiCheck/etc" class="link-dark d-inline-flex text-decoration-none rounded">.</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+            <a href="http://127.0.0.1:8000/pybo/setting" class="link-dark d-inline-flex text-decoration-none rounded">.</a>
+        </button>
+
+      </li>
+
+      <!-- 기존 메인바 들어갈것들 -->
+
+
+
+      <!-- <li class="mb-1">                                  
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+          Registration
+        </button>
+        <div class="collapse show" id="orders-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="http://127.0.0.1:8000/pybo/registration/medicalUser/" class="link-dark d-inline-flex text-decoration-none rounded">Medical User</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/registration/publicUser/" class="link-dark d-inline-flex text-decoration-none rounded">Public User</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/registration/etc/" class="link-dark d-inline-flex text-decoration-none rounded">Etc.</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+          A.I Check
+        </button>
+        <div class="collapse show" id="orders-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="http://127.0.0.1:8000/pybo/aiCheck/createData" class="link-dark d-inline-flex text-decoration-none rounded">데이터 분석</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/aiCheck/createPHR" class="link-dark d-inline-flex text-decoration-none rounded">PHR 생성</a></li>
+            <li><a href="http://127.0.0.1:8000/pybo/aiCheck/etc" class="link-dark d-inline-flex text-decoration-none rounded">Etc.</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+            <a href="http://127.0.0.1:8000/pybo/setting" class="link-dark d-inline-flex text-decoration-none rounded">Setting</a>
+        </button>
+
+      </li> -->
+
+
+
+
+
+      <!-- <li class="border-top my-3"></li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+          Account
+        </button>
+        <div class="collapse" id="account-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
+          </ul>
+        </div>
+      </li> -->
+    </ul>
+  </div>
+
+  <style>
+    /* Show it's not fixed to the top */
+body {
+  min-height: 75rem;
+}
+
+  </style>
+  <style>
+
+    body {
+min-height: 100vh;
+min-height: -webkit-fill-available;
+}
+
+html {
+height: -webkit-fill-available;
+}
+
+main {
+height: 100vh;
+height: -webkit-fill-available;
+max-height: 100vh;
+overflow-x: auto;
+overflow-y: hidden;
+}
+
+.dropdown-toggle { outline: 0; }
+
+.btn-toggle {
+padding: .25rem .5rem;
+font-weight: 600;
+color: rgba(0, 0, 0, .65);
+background-color: transparent;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+color: rgba(0, 0, 0, .85);
+background-color: #ffffff;
+}
+
+.btn-toggle::before {
+width: 1.25em;
+line-height: 0;
+content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+transition: transform .35s ease;
+transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"] {
+color: rgba(0, 0, 0, 0.85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+padding: .1875rem .5rem;
+margin-top: .125rem;
+margin-left: 1.25rem;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+background-color: #ffffff;
+}
+
+.scrollarea {
+overflow-y: auto;
+}
+.navkk{
+    margin-right: 6%;
+}
+  </style>
+
+<script>
+    /* global bootstrap: false */
+  (() => {
+  'use strict'
+  const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  tooltipTriggerList.forEach(tooltipTriggerEl => {
+    new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+  })()
+  
+  </script>

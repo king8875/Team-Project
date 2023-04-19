@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+  <div class="col col-lg-5 bg-success-subtle">
+    <form method="post">
+    <div class="row "><h2 style="margin-bottom: 7%; margin-top: 7%; font-weight: 500;">필요한 정보를 입력해주세요!</h2></div>
+    <div class="row dd" style="margin-bottom: 3%;">
+        <div class="col">
+            <div class="row kk" ><label for="animal-species">반려동물 과 :</label></div>
+            <div class="row">
+                <select class="form-select" aria-label="Default select example" id="animal-species" name="animal-species">
+                <option value="">선택하세요</option>
+                <option value="개과">개과</option>
+                <option value="고양이과">고양이과</option>
+                <option value="새과">새과</option>
+                <option value="햄스터과">햄스터과</option>
+                <option value="토끼과">토끼과</option>
+                <option value="거북과">거북과</option>
+                <option value="해당없음">해당없음(직접입력)</option>
+            </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row kk"><label for="others" >직접입력 :</label></div>
+            <div class="row"><textarea class="form-control" id="others" name="others" rows="1" placeholder="예) 개과"></textarea></div>
+        </div>
+    </div>
+    <div class="row dd" style="margin-bottom: 3%;">
+        <div class="col">
+            <div class="row kk"><label for="detailed-type">반려동물 종 :</label></div>
+            <div class="row">
+                <select class="form-select" aria-label="Default select example" id="detailed-type" name="detailed-type">
+                    <option value="">선택하세요</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row kk"><label for="other-species ">직접입력 :</label></div>
+            <div class="row"><textarea class="form-control" id="other-species" name="other-species" rows="1" placeholder="예) 골든리트리버"></textarea></div>
+        </div>
+    </div>
+    <div class="row dd" style="margin-bottom: 3%;">
+        <div class="col">
+            <div class="row kk"><label for="age">나이 :   </label></div>
+            <div class="row">
+                <select class="form-select" aria-label="Default select example" id="age" name="age">
+                    <option value="">선택하세요</option>
+                    <option value="1-2 살">1-2 살</option>
+                    <option value="3-4 살">3-4 살</option>
+                    <option value="5-6 살">5-6 살</option>
+                    <option value="7-8 살">7-8 살</option>
+                    <option value="8-9 살">8-9 살</option>
+                    <option value="10-11 살">10-11 살</option>
+                    <option value="12-13 살">12-13 살</option>
+                    <option value="14살 +">14 살+</option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row kk"><label for="ages">직접입력 :</label></div>
+            <div class="row"><textarea class="form-control" id="ages" name="ages" rows="1" placeholder="예) 5살"></textarea></div>
+        </div>
+    </div>
+
+    <div class="row dd mt-5">
+        <div class="row kk"><label for="address">반려동물이 아픈 증상을 자세히 적어주세요 :</label></div>
+        <div class="row"><textarea class="form-control" id="gpt1" name="gpt1" rows="6" placeholder="예) 하루전부터 고양이 몸에 발열이 생기더니 지금은 구토 증세와 체중 감소, 호흡곤란 등이 일어나고있습니다. "></textarea></div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary kk" style="margin-top: 5%; font-size: 20px; width: 12%;"  >제&nbsp출</button>
+  </form>
+  </div>
+  <div class="col col-lg-5 bg-info-subtle">
+    <form method="post">
+    
+      <div class="row mb-5 tt"><h2 style="font-weight: 500;">정답을 알려줘 친절한 댕GPT야
+      </h2></div>
+      <div class="row"><textarea class="form-control" id="address3" rows="12">{{question_list}}</textarea></div>
+  </form>
+
+  </div>
+
+    
+    
+        
+
+        
+          
+          
+          
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    const animalSpecies = document.getElementById('animal-species');
+    const detailedType = document.getElementById('detailed-type');
+    const others = document.getElementById('others');
+    const otherSpecies = document.getElementById('other-species');
+    const age = document.getElementById('age');
+    const ages = document.getElementById('ages');
+    
+    animalSpecies.addEventListener('change', function() {
+      if (animalSpecies.value === '개과') {
+        detailedType.innerHTML = `
+          <option value="">선택하세요</option>
+          <option value="허스키">허스키</option>
+          <option value="치와와">치와와</option>
+          <option value="알렉산더">알렉산더</option>
+          <option value="골든리트리버">골든리트리버</option>
+          <option value="닥스훈트">닥스훈트</option>
+          <option value="슈나우저">슈나우저</option>
+          <option value="보더콜리">보더콜리</option>
+          <option value="푸들">푸들</option>
+          <option value="보스턴 테리어">보스턴 테리어</option>
+          <option value="비숑 프리제">비숑 프리제</option>
+          <option value="비글">비글</option>
+          <option value=">사모예드</option>
+
+        `;
+      } else if (animalSpecies.value === '고양이과') {
+        detailedType.innerHTML = `
+          <option value="">선택하세요</option>
+          <option value="먼치킨">먼치킨</option>
+          <option value="노르웨이안 포레스트">노르웨이안 포레스트</option>
+          <option value="랙돌">랙돌</option>
+          <option value="뱅갈">뱅갈</option>
+          <option value="샴">샴</option>
+          <option value="스핑크스">스코티시폴드</option>
+          <option value="아메리칸쇼트헤어">아메리칸쇼트헤어</option>
+          <option value="페르시안">페르시안</option>
+        `;
+      } else if (animalSpecies.value === '새과') {
+        detailedType.innerHTML = `
+          <option value="">선택하세요</option>
+          <option value="참새">참새</option>
+          <option value="앵무새">앵무새</option>
+          <option value="닭">닭</option>
+          <option value="비둘기">비둘기</option>
+          <option value="카나리아">카나리아</option>
+          <option value="문조">문조</option>
+          <option value="오리">오리</option>
+          <option value="거위">거위</option>
+        `;
+      } else if (animalSpecies.value === '햄스터과') {
+        detailedType.innerHTML = `
+          <option value="">선택하세요</option>
+          <option value="햄스터">햄스터</option>
+          <option value="골든햄스터">골든햄스터</option>
+          
+        `;
+      } else if (animalSpecies.value === '토끼과') {
+        detailedType.innerHTML = `
+          <option value="">선택하세요</option>
+          <option value="토끼">토끼</option>
+        `;
+      } else if (animalSpecies.value === '거북과') {
+        detailedType.innerHTML = `
+          <option value="">선택하세요</option>
+          <option value="페닐슐라쿠터">페닐슐라쿠터</option>
+          <option value="중국줄무늬목거북">중국줄무늬목거북</option>
+          <option value="레이저백머스크터틀">레이저백머스크터틀</option>
+          <option value="커먼머스크터틀">커먼머스크터틀</option>
+          <option value="이스턴머드터틀">이스턴머드터틀</option>
+          <option value="네로우브릿지머스크터틀">네로우브릿지머스크터틀</option>
+          <option value="웨스트아프리칸머드터틀">웨스트아프리칸머드터틀</option>
+          <option value="늑대거북">늑대거북</option>
+          <option value="세줄머드터틀">세줄머드터틀</option>
+        `;
+      } else {
+        detailedType.innerHTML = `
+          <option value="">선택하세요</option>
+        `;
+      }
+    });
+
+
+    animalSpecies.addEventListener('change', function() {
+      
+        others.value=animalSpecies.value
+        if (animalSpecies.value === '해당없음') {
+            others.value = ''
+        }
+
+      });
+    detailedType.addEventListener('change', function() {
+      
+      otherSpecies.value=detailedType.value
+        
+
+    });
+    age.addEventListener('change', function() {
+      
+      ages.value=age.value
+      
+
+  });
+  
+  
+
+  </script>
+  <script>
+    $(window).load(function() { $('.loader').delay('500').fadeOut(); })
+  </script>
+  <style>
+    .dd{
+        width: 60%;
+        margin-left: 21%;
+    }
+    .kk{
+      margin-bottom: 2%;
+    }
+    #address3{
+      
+      width: 80%;
+      margin-left: 10%;
+    }
+    .tt{
+      margin-top: 20%;
+      width: 80%;
+      margin-left: 10%;
+    }
+    /* #load{
+      width: 100%;
+      height: 100%;
+      top:0;
+      left:0;
+      position: fixed;
+      display: block;
+      opacity: 0.8;
+      background: white;
+      z-index: 99;
+      text-align: center;
+    }
+
+    #load >img{
+      position: absolute;
+      top:50%;
+      left: 50%;
+      z-index: 100;
+
+
+    } */
+    .loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  position: fixed;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%,-50%) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg); }
+}
+  </style>
+  {% endblock %}

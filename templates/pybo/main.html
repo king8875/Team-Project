@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load pybo_filter %}
+{% block content %}
+{% load static %}
+<div class="col-md-9 col-lg-7">
+
+    
+    <div class='col-md-12 col-lg-12 mainBanner' style="  float: left; background-color: aqua; margin-top: 2%;">
+        <img src="https://d3j8buaepzkvqi.cloudfront.net/img/banner_webceph_001.jpg" style="width: 100%; height: 100%;">
+    </div>
+
+    <div class="col-md-12 col-lg-12 middleContent" style="float: left; margin-top: 2%; height: 320px;">
+        <div class="col-md-3 col-lg-3 middleLeft" style="height: 100%; float: left;">
+
+            <div class="col-md-12 col-lg-12 profile" style = "height: 74%; border-radius: 5%;float: left; background-color: aliceblue;">
+
+                <div class="col-md-7 col-lg-7 profile profileIcon" style = "height: 60%; margin-left: 20%; margin-top: 10%;">
+                    <img class="col-md-12 col-lg-12" src="https://d3j8buaepzkvqi.cloudfront.net/img/1582028088451-2.jpg" alt="..." style="border-radius: 100%; ">
+                </div>
+
+                <div class="col-md-12 col-lg-12 profileName" style = "height: 15%; margin-top: 7%; text-align: center;">
+                    yo~!
+                </div>
+
+               
+
+            </div>
+
+            <div class="col-md-12 col-lg-12 bottomButton" style = "margin-top: 2%; height: 21%; border-radius: 5%; float: left; background-color: aliceblue;">
+                이건 어디에 쓰는건데;;;
+            </div>
+
+        </div>
+
+        <div class="col-md-8 col-lg-9 middleRight" style ="height: 100%; padding-left: 2%; float: left;">
+
+            <div  class="col-md-12 col-lg-12 fourMenu" style = "height: 50%; display: flex; justify-content: space-around; align-items: center; background-color: aliceblue;">
+
+                <div class="col-md-2 col-lg-2 insideMenu" style = "height: 80%; float:left; margin: 2%; background-color: rgb(255, 255, 255); padding: 0 20px 0px 20px;">
+                    
+                </div>
+
+                <div class="col-md-2 col-lg-2 insideMenu" style = "height: 80%; float:left; margin: 2%; background-color: rgb(255, 255, 255); padding: 0 20px 0px 20px;">
+                    
+                </div>
+
+                <div class="col-md-2 col-lg-2 insideMenu" style = "height: 80%; float:left; margin: 2%; background-color: rgb(255, 255, 255); padding: 0 20px 0px 20px;">
+                    
+                </div>
+
+                <div class="col-md-2 col-lg-2 insideMenu" style = "height: 80%; float:left; margin: 2%; background-color: rgb(255, 255, 255); padding: 0 20px 0px 20px;">
+                    
+                </div>
+            </div>
+
+            <div class="col-md-12 col-lg-12 searchbar" style = "height: 40%;; margin-top: 3%; background-color: aliceblue;">
+
+                <div class="col-md-9 col-lg-9 searchBox" style = 'height: 70%; float: left;'>
+                    <input class="col-md-11 col-lg-11" style = "height: 50%; border: none; margin-top: 42px; margin-left: 50px;"/>
+                </div>
+
+                <div class="col-md-2 col-lg-2 searchButton" style = "float: right; height: 100%;">
+                    <button class="col-md-12 col-lg-12" style = "background-color: rgb(200, 235, 236); float: right; height: 100%; border: none; ">Chat gpt</button>
+                </div>
+                
+            </div>
+
+        
+
+        </div>
+
+
+    
+        
+
+    </div>
+
+    <div class = 'col-md-12 col-lg-12 calendar' style = 'margin-top: 3%;'>
+        <img class = 'col-md-12 col-lg-12 calendar'  src="{%static 'img/calender.png' %}">
+
+    </div>
+
+   
+
+
+
+
+
+</div>
+
+<div class='col-md-1 col-lg-3 mainNews' style=" float: right; background-color:#ffffff; margin-top: 1%;  border-radius: 10px; min-height: 100vh;">
+    <div class='col-md-1 col-lg-3' style="font-weight:900; margin-top: 3%;">뉴스</div>
+    {% if question_list %}
+        {% for question in question_list %}
+            <div class=' col-md-12 col-lg-12 d-flex justify-content-center' style="margin-top: 4%;">
+                <div class="col-md-11 col-lg-11 card" style="border-radius: 10px;">
+                    {% if question.thumbnail %}
+                        <img src="{{ question.thumbnail.url }}" class="card-img-top" alt="{{question.subject}}" style="max-height: 300px; border-radius: 10px;">
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h7 class="card-subtitle mb-2 text-muted">{{ question.author.username }}</h7>
+                        <h4 class="card-title">{{ question.subject }}</h4>   
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
+
+
+<!-- 자바스크립트 End -->
