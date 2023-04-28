@@ -574,6 +574,15 @@ def pet_create(request,question_id):
 
 
 
+def randing_page(request):
+    #question_list = Question.objects.order_by('-create_date')
+    #answer_list = Answer.objects.order_by('-create_date')
+    #category = Category.objects.order_by('id')
+    #context = {'category': category, 'question_list': question_list, 'answer_list' : answer_list}
+    #print(category)
+    return render(request, 'registration/randing.html')
+
+
 
 
 
