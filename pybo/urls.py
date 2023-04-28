@@ -46,9 +46,9 @@ urlpatterns = [
     path('animal/contest/', views.animalContest, name='animal_contest'),
     path('animal/ranking/', views.animalRanking, name='animal_ranking'),
     path('animal/write/', views.animalWrite, name='animal_write'),
-
+    path('registration/randing/', views.randing_page, name='randing_page'),
     
-
+    
 
     # 1. Channel-Community
     path('channelCommunity/create/', views.createChannel, name='createChannel'),
