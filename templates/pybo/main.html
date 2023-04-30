@@ -5,80 +5,55 @@
 <div class="col-md-9 col-lg-7">
 
     
-    <div class='col-md-12 col-lg-12 mainBanner' style="  float: left; background-color: aqua; margin-top: 2%;">
-        <img src="https://d3j8buaepzkvqi.cloudfront.net/img/banner_webceph_001.jpg" style="width: 100%; height: 100%;">
-    </div>
-
-    <div class="col-md-12 col-lg-12 middleContent" style="float: left; margin-top: 2%; height: 320px;">
-        <div class="col-md-3 col-lg-3 middleLeft" style="height: 100%; float: left;">
-
-            <div class="col-md-12 col-lg-12 profile" style = "height: 74%; border-radius: 5%;float: left; background-color: aliceblue;">
-
-                <div class="col-md-7 col-lg-7 profile profileIcon" style = "height: 60%; margin-left: 20%; margin-top: 10%;">
-                    <img class="col-md-12 col-lg-12" src="https://d3j8buaepzkvqi.cloudfront.net/img/1582028088451-2.jpg" alt="..." style="border-radius: 100%; ">
-                </div>
-
-                <div class="col-md-12 col-lg-12 profileName" style = "height: 15%; margin-top: 7%; text-align: center;">
-                    yo~!
-                </div>
-
-               
-
-            </div>
-
-            <div class="col-md-12 col-lg-12 bottomButton" style = "margin-top: 2%; height: 21%; border-radius: 5%; float: left; background-color: aliceblue;">
-                이건 어디에 쓰는건데;;;
-            </div>
-
+    <div id="myCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
         </div>
-
-        <div class="col-md-8 col-lg-9 middleRight" style ="height: 100%; padding-left: 2%; float: left;">
-
-            <div  class="col-md-12 col-lg-12 fourMenu" style = "height: 50%; display: flex; justify-content: space-around; align-items: center; background-color: aliceblue;">
-
-                <div class="col-md-2 col-lg-2 insideMenu" style = "height: 80%; float:left; margin: 2%; background-color: rgb(255, 255, 255); padding: 0 20px 0px 20px;">
-                    
-                </div>
-
-                <div class="col-md-2 col-lg-2 insideMenu" style = "height: 80%; float:left; margin: 2%; background-color: rgb(255, 255, 255); padding: 0 20px 0px 20px;">
-                    
-                </div>
-
-                <div class="col-md-2 col-lg-2 insideMenu" style = "height: 80%; float:left; margin: 2%; background-color: rgb(255, 255, 255); padding: 0 20px 0px 20px;">
-                    
-                </div>
-
-                <div class="col-md-2 col-lg-2 insideMenu" style = "height: 80%; float:left; margin: 2%; background-color: rgb(255, 255, 255); padding: 0 20px 0px 20px;">
-                    
-                </div>
+        <div class="carousel-inner">
+          <div class="carousel-item carousel-item-next carousel-item-start">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-tertiary-color)"></rect></svg>
+            <div class="container">
+              <div class="carousel-caption text-start">
+                <h1>Example headline.</h1>
+                <p>Some representative placeholder content for the first slide of the carousel.</p>
+                <!-- <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p> -->
+              </div>
             </div>
-
-            <div class="col-md-12 col-lg-12 searchbar" style = "height: 40%;; margin-top: 3%; background-color: aliceblue;">
-
-                <div class="col-md-9 col-lg-9 searchBox" style = 'height: 70%; float: left;'>
-                    <input class="col-md-11 col-lg-11" style = "height: 50%; border: none; margin-top: 42px; margin-left: 50px;"/>
-                </div>
-
-                <div class="col-md-2 col-lg-2 searchButton" style = "float: right; height: 100%;">
-                    <button class="col-md-12 col-lg-12" style = "background-color: rgb(200, 235, 236); float: right; height: 100%; border: none; ">Chat gpt</button>
-                </div>
-                
+          </div>
+          <div class="carousel-item">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>Another example headline.</h1>
+                <p>Some representative placeholder content for the second slide of the carousel.</p>
+                <!-- <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p> -->
+              </div>
             </div>
-
-        
-
+          </div>
+          <div class="carousel-item active carousel-item-start">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <div class="container">
+              <div class="carousel-caption text-end">
+                <h1>One more for good measure.</h1>
+                <p>Some representative placeholder content for the third slide of this carousel.</p>
+                <!-- <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p> -->
+              </div>
+            </div>
+          </div>
         </div>
-
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
 
     
-        
-
-    </div>
-
-    <div class = 'col-md-12 col-lg-12 calendar' style = 'margin-top: 3%;'>
-        <img class = 'col-md-12 col-lg-12 calendar'  src="{%static 'img/calender.png' %}">
-
-    </div>
 
    
 
@@ -109,5 +84,15 @@
 </div>
 {% endblock %}
 
-
+<style>
+    #myCarousel{
+        background-color: aliceblue;
+    }
+    .carousel{
+        background-color: aliceblue;
+    }
+    .carousel-inner{
+        background-color: aliceblue;
+    }
+</style>
 <!-- 자바스크립트 End -->
