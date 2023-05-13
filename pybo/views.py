@@ -783,3 +783,4 @@ def animalRanking(request):
 def animalWrite(request):
     
     return render(request, 'pybo/animal_write.html')
+
