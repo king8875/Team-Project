@@ -4,103 +4,109 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="http://code.jquery.com/jquery-latest.js"></script>
-
+  <link rel="stylesheet" href="../../static/mbti.css" />
 </head>
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
-  <div class="col col-lg-5 bg-success-subtle">
-    <form method="post">
-    <div class="row "><h2 style="margin-bottom: 7%; margin-top: 7%; font-weight: 500;">필요한 정보를 입력해주세요!</h2></div>
-    <div class="row dd" style="margin-bottom: 3%;">
-        <div class="col">
-            <div class="row kk" ><label for="animal-species">반려동물 과 :</label></div>
-            <div class="row">
-                <select class="form-select" aria-label="Default select example" id="animal-species" name="animal-species">
-                <option value="">선택하세요</option>
-                <option value="개과">개과</option>
-                <option value="고양이과">고양이과</option>
-                <option value="새과">새과</option>
-                <option value="햄스터과">햄스터과</option>
-                <option value="토끼과">토끼과</option>
-                <option value="거북과">거북과</option>
-                <option value="해당없음">해당없음(직접입력)</option>
-            </select>
+    <div class="col col-lg-10 bg-success-subtle">
+    <form method ="post">
+        <div class="gpt_container">
+        <div class="gpt_full">
+            <div class="gpt_article">
+                <div class="gpt_select">
+                    <div class="row "><h2 style="display: flex; flex-direction: row; justify-content: center; margin-bottom: 7%; margin-top: 7%; font-weight: 500;">필요한 정보를 입력해주세요!</h2></div>
+                    <div class="row dd" style="margin-bottom: 3%;">
+                        <div class="col">
+                            <div class="row kk" ><label for="animal-species">반려동물 과 :</label></div>
+                            <div class="row">
+                                <select class="form-select" aria-label="Default select example" id="animal-species" name="animal-species">
+                                <option value="">선택하세요</option>
+                                <option value="개과">개과</option>
+                                <option value="고양이과">고양이과</option>
+                                <option value="새과">새과</option>
+                                <option value="햄스터과">햄스터과</option>
+                                <option value="토끼과">토끼과</option>
+                                <option value="거북과">거북과</option>
+                                <option value="해당없음">해당없음(직접입력)</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row kk"><label for="others" >직접입력 :</label></div>
+                            <div class="row"><textarea class="form-control" id="others" name="others" rows="1" placeholder="예) 개과"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="row dd" style="margin-bottom: 3%;">
+                        <div class="col">
+                            <div class="row kk"><label for="detailed-type">반려동물 종 :</label></div>
+                            <div class="row">
+                                <select class="form-select" aria-label="Default select example" id="detailed-type" name="detailed-type">
+                                    <option value="">선택하세요</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row kk"><label for="other-species ">직접입력 :</label></div>
+                            <div class="row"><textarea class="form-control" id="other-species" name="other-species" rows="1" placeholder="예) 골든리트리버"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="row dd" style="margin-bottom: 3%;">
+                        <div class="col">
+                            <div class="row kk"><label for="age">나이 :   </label></div>
+                            <div class="row">
+                                <select class="form-select" aria-label="Default select example" id="age" name="age">
+                                    <option value="">선택하세요</option>
+                                    <option value="1-2 살">1-2 살</option>
+                                    <option value="3-4 살">3-4 살</option>
+                                    <option value="5-6 살">5-6 살</option>
+                                    <option value="7-8 살">7-8 살</option>
+                                    <option value="8-9 살">8-9 살</option>
+                                    <option value="10-11 살">10-11 살</option>
+                                    <option value="12-13 살">12-13 살</option>
+                                    <option value="14살 +">14 살+</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row kk"><label for="ages">직접입력 :</label></div>
+                            <div class="row"><textarea class="form-control" id="ages" name="ages" rows="1" placeholder="예) 5살"></textarea></div>
+                        </div>
+                    </div>
+
+                    <div class="row dd mt-5">
+                        <div class="row kk"><label for="address">반려동물이 아픈 증상을 자세히 적어주세요 :</label></div>
+                        <div class="row"><textarea class="form-control" id="gpt1" name="gpt1" rows="6" placeholder="예) 하루전부터 고양이 몸에 발열이 생기더니 지금은 구토 증세와 체중 감소, 호흡곤란 등이 일어나고있습니다. "></textarea></div>
+              
+                    </div>
+                    <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <button type="submit" class="btn btn-primary kk" style="margin-top: 5%; font-size: 20px; width: 12%;"  >제&nbsp출</button>
+                    </div>
+                </div>
+                
+                <div class="gpt_auto">
+                  
+                    <div class="row mb-5 tt">
+                    <h2 style="display: flex; flex-direction: row; justify-content: center; font-weight: 500;">정답을 알려줘 친절한 댕GPT야
+                    </h2></div>
+                    <div class="row"><textarea class="form-control" id="address3" rows="12">{{question_list}}</textarea></div>
+
+                </div>
+
+
             </div>
         </div>
-        <div class="col">
-            <div class="row kk"><label for="others" >직접입력 :</label></div>
-            <div class="row"><textarea class="form-control" id="others" name="others" rows="1" placeholder="예) 개과"></textarea></div>
         </div>
-    </div>
-    <div class="row dd" style="margin-bottom: 3%;">
-        <div class="col">
-            <div class="row kk"><label for="detailed-type">반려동물 종 :</label></div>
-            <div class="row">
-                <select class="form-select" aria-label="Default select example" id="detailed-type" name="detailed-type">
-                    <option value="">선택하세요</option>
-                </select>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row kk"><label for="other-species ">직접입력 :</label></div>
-            <div class="row"><textarea class="form-control" id="other-species" name="other-species" rows="1" placeholder="예) 골든리트리버"></textarea></div>
-        </div>
-    </div>
-    <div class="row dd" style="margin-bottom: 3%;">
-        <div class="col">
-            <div class="row kk"><label for="age">나이 :   </label></div>
-            <div class="row">
-                <select class="form-select" aria-label="Default select example" id="age" name="age">
-                    <option value="">선택하세요</option>
-                    <option value="1-2 살">1-2 살</option>
-                    <option value="3-4 살">3-4 살</option>
-                    <option value="5-6 살">5-6 살</option>
-                    <option value="7-8 살">7-8 살</option>
-                    <option value="8-9 살">8-9 살</option>
-                    <option value="10-11 살">10-11 살</option>
-                    <option value="12-13 살">12-13 살</option>
-                    <option value="14살 +">14 살+</option>
-                </select>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row kk"><label for="ages">직접입력 :</label></div>
-            <div class="row"><textarea class="form-control" id="ages" name="ages" rows="1" placeholder="예) 5살"></textarea></div>
-        </div>
-    </div>
 
-    <div class="row dd mt-5">
-        <div class="row kk"><label for="address">반려동물이 아픈 증상을 자세히 적어주세요 :</label></div>
-        <div class="row"><textarea class="form-control" id="gpt1" name="gpt1" rows="6" placeholder="예) 하루전부터 고양이 몸에 발열이 생기더니 지금은 구토 증세와 체중 감소, 호흡곤란 등이 일어나고있습니다. "></textarea></div>
-
-    </div>
-
-    <button type="submit" class="btn btn-primary kk" style="margin-top: 5%; font-size: 20px; width: 12%;"  >제&nbsp출</button>
-  </form>
-  </div>
-  <div class="col col-lg-5 bg-info-subtle">
-    <form method="post">
-    
-      <div class="row mb-5 tt"><h2 style="font-weight: 500;">정답을 알려줘 친절한 댕GPT야
-      </h2></div>
-      <div class="row"><textarea class="form-control" id="address3" rows="12">{{question_list}}</textarea></div>
-  </form>
-
-  </div>
-
-    
-    
         
-
-        
           
           
           
-
-    
-  
-
+    </form>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>
 
 
 
@@ -218,7 +224,7 @@
   });
   
   
-
+  {% endblock %}
   </script>
   <script>
     $(window).load(function() { $('.loader').delay('500').fadeOut(); })
@@ -280,4 +286,3 @@
   100% { transform: translate(-50%,-50%) rotate(360deg); }
 }
   </style>
-  {% endblock %}
