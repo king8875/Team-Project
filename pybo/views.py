@@ -784,3 +784,6 @@ def animalWrite(request):
     
     return render(request, 'pybo/animal_write.html')
 
+def calendar(request):
+    
+    return render(request, 'pybo/calendar.html')

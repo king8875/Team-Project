@@ -47,6 +47,7 @@ urlpatterns = [
     path('animal/ranking/', views.animalRanking, name='animal_ranking'),
     path('animal/write/', views.animalWrite, name='animal_write'),
     path('registration/randing/', views.randing_page, name='randing_page'),
+    path('calendar/', views.calendar, name='calendar'),
     
     
 
