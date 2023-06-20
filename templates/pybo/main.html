@@ -52,19 +52,91 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-      <!-- 프로필 카드 컴포넌트 -->
-      <div class="card" style="width: 15rem; border-radius: 10px; margin-top: 10px;">
-        <img class="card-img-top" src="..." alt="Card image cap">
+<!-- 프로필 카드 컴포넌트 -->
+      <div class="card" style="width: 15rem; border-radius: 10px; margin-top: 10px; height: 400px;  user-select: auto; box-sizing: content-box; position: absolute;">
+        <img class="card-img-top" src="https://d3j8buaepzkvqi.cloudfront.net/img/1582028088451-2.jpg" alt="Card image cap" onclick="openModal()">
+      
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text" ></p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <h5 class="card-title" style="text-align: center;"> {{ user.username }} </h5>
+          <p class="card-text" style="text-align: center; font-weight:lighter;">알렉산더</p>
 
+          <div class="profile-card-menu" >
+            <img src="C:\Users\PC\Desktop\team-project\Team-Project\static\icon\profile.png" alt="">
+            <button type="button" style="border: none; background-color: #FFFFFF; margin-left: 30px;">
+              <a href="{% url 'pybo:user_profile' %}">
+                <img src="{%static 'icon/profile.png' %}" alt="Logo" height="30">
+              </a>
+            </button>
+            <button type="button" style="border: none; background-color: #FFFFFF;">
+              <a href="{% url 'pybo:scheduleChannel' %}">
+                <img src="{%static 'icon/cal.png' %}" alt="Logo" height="30">
+              </a>
+            </button>
+            <button type="button" style="border: none; background-color: #FFFFFF; left: 100px;">
+              <a href="{% url 'pybo:main' %}">
+                <img src="{%static 'icon/setting.png' %}" alt="Logo" height="30">
+              </a>
+            </button>
+          </div>
+
+<!-- 프로필 사진 누르면 프로필 수정 페이지 나옴 -->
+          <div id="modal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeModal()">&times;</span>
+              <div>
+                <h2>프로필 수정</h2>
+                <div>
+                    <h6>First Name</h6>
+                    <input type="text" placeholder="{{ user.username }}" onblur="this.placeholder" style="width: 40%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585;  " />
+                </div>
+        
+                <div>
+                    <h6>E-mail</h6>
+                    <input type="text" placeholder="{{ user.email }}" style="width: 60%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585" />
+                   
+                   
+                    <h6>Password</h6>
+                    <input style="width: 60%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585" />
+                </div>
+
+                <div style="display: inline-block; float: right;">
+                    <button type="button" style="background: #FFFFFF; border-color: #5429ff; color: #5429ff; border-radius: 5px;"  > Cancel </button>
+                    <button type="button" style="background: #5429ff; color: #ffffff; border-radius: 5px;"  > Save </button>
+                </div>
+
+            </div>
+            </div>
+          </div>
+<!-- 프로필 수정 모달창 닫기 -->
+      
         </div>
       </div>
+<!-- 프로필 카드 컴포넌트 끝 -->
+
+
+<!-- 금주의 댕콘테스트 컴포넌트  -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"  style="margin-left: 25%; ">
+
+  <div class="col">
+    <div class="card shadow-sm">
+    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+        </div>
+        <small class="text-body-secondary">9 mins</small>
+        </div>
+    </div>
+    </div>
 </div>
+</div>
+
+  
+</div>
+
+
 
       
 
@@ -96,6 +168,64 @@
         {% endfor %}
     {% endif %}
 </div>
+
+
+<script>
+function openModal() {
+  document.getElementById("modal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+  var modal = document.getElementById("modal");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+</script>
+
+<style>
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
 {% endblock %}
 
 <!-- 자바스크립트 End -->
+
+
+
+
