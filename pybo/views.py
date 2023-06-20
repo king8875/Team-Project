@@ -174,7 +174,7 @@ def index3(request, category_name='qna'):
 
 
 def index2(request):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
    
     if request.method == "POST":
