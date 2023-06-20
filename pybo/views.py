@@ -17,8 +17,10 @@ from django.contrib.auth.forms import (
 )
 from django.db.models import Q
 from django.db.models import Count
-from .models import Post, Photo
+from .models import Post, Photo, Events
 import openai
+from django.http import JsonResponse
+
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
@@ -783,3 +785,78 @@ def animalRanking(request):
 def animalWrite(request):
     
     return render(request, 'pybo/animal_write.html')
+
+
+
+
+
+
+
+
+
+@login_required(login_url='common:login')
+def calendar(request):  
+    print('1')
+    #category = Events.objects.order_by('id')
+    author = request.user
+    print(author)
+    
+    all_events = Events.objects.filter(author=author)
+    print(all_events)
+    #all_events = Events.objects.all()
+    context = {
+        "events":all_events,
+    }
+    return render(request,'pybo/calendar.html',context)
+@login_required(login_url='common:login') 
+def all_events(request):   
+    print('2')
+    author = request.user   
+    print(author)                                                                                           
+    all_events = Events.objects.filter(author=author)                                                                             
+    out = []                                                                                                             
+    for event in all_events:                                                                                             
+        out.append({                                                                                                     
+            'title': event.name,                                                                                         
+            'id': event.id,                                                                                              
+            'start': event.start.strftime("%m/%d/%Y, %H:%M:%S"),                                                         
+            'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),                                                             
+        })                                                                                                               
+                                                                                                                      
+    return JsonResponse(out, safe=False)                                                                                                              
+                                                                                                                      
+ 
+@login_required(login_url='common:login') 
+def add_event(request):
+    print('3')
+    author = request.user
+    print(author)
+    start = request.GET.get("start", None)
+    end = request.GET.get("end", None)
+    title = request.GET.get("title", None)
+    event = Events(name=str(title), start=start, end=end, author = author)
+    event.save()
+    data = {}
+    return JsonResponse(data)
+
+@login_required(login_url='common:login') 
+def update(request):
+    print('4')
+    start = request.GET.get("start", None)
+    end = request.GET.get("end", None)
+    title = request.GET.get("title", None)
+    id = request.GET.get("id", None)
+    event = Events.objects.get(id=id)
+    event.start = start
+    event.end = end
+    event.name = title
+    event.save()
+    data = {}
+    return JsonResponse(data)
+@login_required(login_url='common:login') 
+def remove(request):
+    id = request.GET.get("id", None)
+    event = Events.objects.get(id=id)
+    event.delete()
+    data = {}
+    return JsonResponse(data)
