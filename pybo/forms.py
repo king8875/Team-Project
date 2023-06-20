@@ -1,5 +1,5 @@
 from django import forms
-from pybo.models import Question, Answer, Expert, Expert_answer, Pet
+from pybo.models import Question, Answer, Expert, Expert_answer, Pet, animal_ranking
 from django.db import connection
 
 class QuestionForm(forms.ModelForm):
@@ -55,3 +55,22 @@ class PetForm(forms.ModelForm):
     class Meta:
         model = Pet
         fields = ['photo']
+
+class animalForm(forms.ModelForm):
+    class Meta:
+        model = animal_ranking
+        connection.close()
+        fields = ['subject', 'content','thumbnail']
+        widgets = {
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
+        }
+        labels = {
+            'subject': '줴목',
+            'content': '내용',
+            'thumbnail': '썸네일',
+        } 
+        enctype = 'multipart/form-data'
+    def __init__(self, *args, **kwargs):
+        super(animalForm, self).__init__(*args, **kwargs)
+        self.fields['thumbnail'].required = False

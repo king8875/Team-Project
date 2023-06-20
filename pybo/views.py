@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
-from .models import Question, Answer, Category, Expert_Category, Expert, Expert_answer, Pet
+from .models import Question, Answer, Category, Expert_Category, Expert, Expert_answer, Pet, animal_ranking, animal_ranking_Category
 from django.utils import timezone
 from django.http import HttpResponse
-from .forms import QuestionForm , AnswerForm, ExpertForm, ExpertAnswerForm,PetForm
+from .forms import QuestionForm , AnswerForm, ExpertForm, ExpertAnswerForm,PetForm,animalForm
 from django.http import HttpResponseNotAllowed
 from django.core.paginator import Paginator  
 from django.contrib.auth.decorators import login_required
@@ -19,6 +19,16 @@ from django.db.models import Q
 from django.db.models import Count
 from .models import Post, Photo
 import openai
+from django.contrib.auth.models import User, Group
+from django.contrib import messages
+from django.shortcuts import render
+from .models import Event, Calendar
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
@@ -46,7 +56,6 @@ def main(request, category_name='expert'):
     page = request.GET.get('page', '1')  # 페이지
     kw = request.GET.get('kw', '')  # 검색어
     so = request.GET.get('so', 'recent')  # 정렬기준
-
     expert = Expert.objects.all()
     category_list = Expert_Category.objects.all()
     #print(category_list)
@@ -174,7 +183,7 @@ def index3(request, category_name='qna'):
 
 
 def index2(request):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
    
     if request.method == "POST":
@@ -186,7 +195,8 @@ def index2(request):
         age = request.POST.get('age','')
         ages = request.POST.get('ages','')
         gpt1 = request.POST.get('gpt1','')
-        prompt = "나이가 " + ages + "인 " + others + "의 " + other_species + "종이 " + str(gpt1)
+        prompt = "나이가 " + ages + "인 " + others + "의 " + other_species + "종이 " + str(gpt1) + " 예상되는 병명과 집에서 할 수 있는 치료 방법을 250자 정도로 알려줘"
+        
         print(prompt)
         response = openai.Completion.create(
         model="text-davinci-003",
@@ -220,6 +230,12 @@ def expert_detail(request, question_id):
     photo = Photo.objects.all()
     context = {'question': question, 'photo' : photo}
     return render(request, 'pybo/expert_detail.html', context)
+
+def animal_detail(request, question_id):
+    question = get_object_or_404(animal_ranking, pk=question_id)
+    photo = Photo.objects.all()
+    context = {'question': question, 'photo' : photo}
+    return render(request, 'pybo/animal_detail.html', context)
 
 @login_required(login_url='common:login')
 def answer_create(request, question_id):
@@ -411,6 +427,13 @@ def expert_vote(request, expert_id):
     return redirect('pybo:expert_detail', expert_id=expert.id)
 
 @login_required(login_url='common:login')
+def animal_vote(request, question_id):
+    question = get_object_or_404(animal_ranking, pk=question_id)
+    
+    question.voter.add(request.user)
+    return redirect('pybo:animalcontest', category_name='animal_ranking')
+
+@login_required(login_url='common:login')
 def answer_vote(request, answer_id):
     answer = get_object_or_404(Answer, pk=answer_id)
     if request.user == answer.author:
@@ -421,6 +444,28 @@ def answer_vote(request, answer_id):
                 resolve_url('pybo:detail', question_id=answer.question.id), answer.id))
 
 
+def add_user_to_answer_group(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        try:
+            user = User.objects.get(username=username)
+            group, created = Group.objects.get_or_create(name='answer')
+            user.groups.add(group)
+            messages.success(request, f'{username} added to answer group.')
+        except User.DoesNotExist:
+            messages.error(request, f'{username} does not exist.')
+        except Exception as e:
+            messages.error(request, str(e))
+    
+    # 추가된 사용자를 가져와서 context에 담기
+    try:
+        group = Group.objects.get(name='answer')
+        users = group.user_set.all()
+    except Group.DoesNotExist:
+        users = []
+    context = {'users': users}
+    
+    return render(request, 'pybo/add_user_to_answer_group.html', context)
 
 
 @login_required(login_url='common:login')
@@ -451,7 +496,26 @@ def user_answer(request):
 
 
 
-
+def calendar(request):
+    events = []
+    if request.method == 'POST':
+        day = request.POST.get('day')
+        month = request.POST.get('month')
+        year = request.POST.get('year')
+        title = request.POST.getlist('events1')
+        time = request.POST.getlist('events2')
+        
+        event = Event(title=title, time=time)
+        event.save()
+        events.append(event)
+        calendar = Calendar(day=day, month=month, year=year)
+        calendar.save()
+        calendar.events.set(events) # ManyToMany 관계 생성
+        return HttpResponseRedirect(reverse('pybo:calendar'))
+    else:
+        events = Event.objects.all()
+        context = {'events': events}
+        return render(request, 'pybo/calendar.html', context)
 
 
 
@@ -772,15 +836,112 @@ def dangbti(request):
     
     return render(request, 'pybo/mbti.html')
 
-def animalContest(request):
+def animalContest(request,category_name='animal_ranking'):
     
-    return render(request, 'pybo/animal_contest.html')
+    '''
+    pybo 목록 출력
+    '''
+    # 입력 파라미터
+    page = request.GET.get('page', '1')  # 페이지
+    kw = request.GET.get('kw', '')  # 검색어
+    so = request.GET.get('so', 'recent')  # 정렬기준
 
-def animalRanking(request):
-    
-    return render(request, 'pybo/animal_ranking.html')
+    animal = animal_ranking.objects.all()
+    category_list = animal_ranking_Category.objects.all()
+    #print(category_list)
+    category = get_object_or_404(animal_ranking_Category, name=category_name)
+    question_list = animal_ranking.objects.filter(category=category)
+    ###expert_list변경
+    # 정렬
+    if so == 'recommend':
+        # aggretation, annotation에는 relationship에 대한 역방향 참조도 가능 (ex. Count('voter'))
+        question_list = question_list.annotate(num_voter=Count('voter')).order_by('-num_voter', '-create_date')
+    elif so == 'popular':
+        question_list = question_list.annotate(num_answer=Count('answer')).order_by('-num_answer', '-create_date')
+    else:
+        question_list = question_list.order_by('-create_date')
 
-def animalWrite(request):
+    # 검색
+    if kw:
+        question_list = question_list.filter(
+            Q(subject__icontains=kw) |  # 질문 제목검색
+            Q(content__icontains=kw) |  # 질문 내용검색
+            Q(answer__content__icontains=kw) |  # 답변 내용검색
+            Q(author__username__icontains=kw) |  # 질문 작성자검색
+            Q(answer__author__username__icontains=kw)  # 답변 작성자검색
+        ).distinct()
+
+    # 페이징처리
+    paginator = Paginator(question_list, 10)  # 페이지당 10개식 보여주기
+    page_obj = paginator.get_page(page)
+    max_index = len(paginator.page_range)
+
+    context = {'question_list': page_obj, 'max_index': max_index, 'page': page, 'kw': kw, 'so': so,
+               'category_list': category_list, 'category': category, 'animal':animal}
+    return render(request, 'pybo/animal_contest.html', context)
+
+
+
+def animalRanking(request,category_name='animal_ranking'):
     
-    return render(request, 'pybo/animal_write.html')
+    
+    return render(request, 'pybo/expert_list.html')
+
+@login_required(login_url='common:login')
+def animalWrite(request,category_name):
+    """
+    pybo 질문등록
+    """
+    category = animal_ranking_Category.objects.get(name=category_name)
+    print(category)
+    aniaml = animal_ranking.objects.all
+    
+    if request.method == 'POST':
+        """post = Post()
+        photo = Photo()
+        post.title = request.POST['title']
+        post.content = request.POST['content']
+        post.pub_date = timezone.datetime.now()
+        post.user = request.user
+        photo.post = post
+        photo.image = request.POST['imgs']
+        
+        post.save()
+        photo.save()
+        
+        
+       
+        for img in request.FILES.getlist('imgs'):
+            print('hi in img')
+            # Photo 객체를 하나 생성한다.
+            photo = Photo()
+            # 외래키로 현재 생성한 Post의 기본키를 참조한다.
+            photo.post = post
+            # imgs로부터 가져온 이미지 파일 하나를 저장한다.
+            photo.image = img
+            # 데이터베이스에 저장
+            print(type(photo))
+            photo.save()"""
+        
+        form = animalForm(request.POST, request.FILES)
+        if form.is_valid():
+            aniaml = form.save(commit=False)
+            aniaml.author = request.user  # author 속성에 로그인 계정 저장
+            aniaml.create_date = timezone.now()
+            aniaml.category = category  
+           
+            aniaml.save()
+           
+            #return redirect(category)
+            #return redirect('pybo:expert_detail')
+            #expert = get_object_or_404(Question, pk=expert_id)
+            context = {'aniaml': aniaml, 'form': form}
+            return render(request, 'pybo/main.html',context)
+        else:
+            print(form.errors)
+    else:  # request.method == 'GET'
+        form = animalForm()
+   
+    context = {'form': form, 'category': category}
+    return render(request, 'pybo/question_form.html', context)
 

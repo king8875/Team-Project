@@ -19,6 +19,8 @@ urlpatterns = [
     path('answer/modify/<int:answer_id>/', views.answer_modify, name='answer_modify'),
     path('expert/modify/<int:question_id>/', views.expert_modify, name='expert_modify'),
     path('expert/answer/modify/<int:answer_id>/', views.expert_answer_modify, name='expert_answer_modify'),
+    
+    path('question/delete/<int:question_id>/', views.question_delete, name='question_delete'),
     path('expert/question/delete/<int:question_id>/', views.expert_delete, name='expert_delete'),
     path('question/modify/<int:question_id>/', views.question_modify, name='question_modify'),
     path('index/', views.index, name='index'),
@@ -39,14 +41,19 @@ urlpatterns = [
     path('question/list/<str:category_name>/', views.index, name='index'),
     path('question/detail/<int:question_id>/', views.detail, name='detail'),
     path('expert/detail/<int:question_id>/', views.expert_detail, name='expert_detail'),
+    path('animal/detail/<int:question_id>/', views.animal_detail, name='animal_detail'),
     path('expert/', views.expert, name='expert'),
     path('expert/craete/<str:category_name>/', views.expert_create, name='expert_create'),
     path('create/<int:question_id>', views.pet_create, name='pet_create'),
     path('dangbti/', views.dangbti, name='dangbti'),
-    path('animal/contest/', views.animalContest, name='animal_contest'),
+    path('animal/contest/<str:category_name>/', views.animalContest, name='animalcontest'),
     path('animal/ranking/', views.animalRanking, name='animal_ranking'),
-    path('animal/write/', views.animalWrite, name='animal_write'),
-    path('registration/randing/', views.randing_page, name='randing_page'),
+    path('animal/write/<str:category_name>', views.animalWrite, name='animal_write'),
+    path('animal/vote/<int:question_id>/', views.animal_vote, name='animal_vote'),
+    path('add_user_to_answer_group/', views.add_user_to_answer_group, name='add_user_to_answer_group'),
+
+    #path('save_calendar/', views.save_calendar, name='save_calendar'),
+    path('calendar/', views.calendar, name='calendar'),
     
     
 
