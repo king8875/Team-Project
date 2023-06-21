@@ -1,3 +1,96 @@
-<!-- A.I. Check -> (PHR 생성) -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-lg-10">
+    <div class="card text-bg-light mb-3 mt-4">
+    <div class="card-header ">레코드 목록 <button type="button" class="btn ms-2" style="background-color: rgb(195, 255, 233);">+ 레코드 생성</button></div>
+    <div class="col-lg-12"></div>
+    <div class="card-body" >
+        <div class="card text-bg-info mb-3 ">
+            <div class="card-header" style="background-color: #b3b3b3;" >
+                <div class="row">
+                    <div class="col">
+                        <h6>레코드1: 23-06-20</h6>
+                    </div>
+                    <div class="col  d-flex justify-content-end">
+                        
+                        <div class="form-group">
+                        <input class="form-control form-control-user" type="file" multiple="multiple" style="width: 25rem;"
+                        name="product_detail_image" id="product_detail_image" onchange="setDetailImage(event);">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="card-body" style="background-color:  rgb(255, 255, 255); ">
+                <div class="row">
+                    <div class="col-lg-2 ms-2" style="border-right: 1px solid #c7c7c7;">
+                        <div class="row">
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(225, 228, 204);">계측</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">분석</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">PA</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">연조직</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">문제목록</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">치료</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">중첩</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">뷰어</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">케이스</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">타임랩스</button>
+                            <button type="button" class="btn mb-2 col-lg-11" style="background-color: rgb(190, 225, 255);">속이뚫린</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-12"><div id="images_container"></div></div>
+                            
+                              <!-- <div class="card h-100">
+                                <img src="{%static 'img/INFJ.png' %}" class="card-img-top" alt="...">
+                              </div> -->                            
+                            
+                            
+                              <!-- <input type="file" id="getfile" accept="image/*"> -->
 
-<div>ai PHR</div>
+                              
+                            </div>
+                    </div>
+            </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
+<script>
+    var file = document.querySelector('#getfile');
+
+file.onchange = function () {
+    var fileList = file.files ;
+
+    // 읽기
+    var reader = new FileReader();
+    reader.readAsDataURL(fileList [0]);
+
+    //로드 한 후
+    reader.onload = function  () {
+        document.querySelector('#preview').src = reader.result ;
+    };
+};
+</script>
+<script>
+    function setDetailImage(event){
+        for(var image of event.target.files){
+            var reader = new FileReader();
+            
+            reader.onload = function(event){
+                var img = document.createElement("img");
+                img.setAttribute("src", event.target.result);
+                img.setAttribute("class", "col-lg-2");
+                document.querySelector("div#images_container").appendChild(img);
+            };
+            
+            console.log(image);
+            reader.readAsDataURL(image);
+        }
+    }
+</script>
+
+{% endblock %}
