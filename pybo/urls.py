@@ -3,6 +3,8 @@ from pybo.views import MovieViewSet
 from django.contrib.auth import views as auth_views
 from . import views
 from django.urls import path, include, re_path
+from .views import patient_list, add_patient
+
 app_name = 'pybo'
 
 urlpatterns = [
@@ -47,7 +49,7 @@ urlpatterns = [
     path('animal/ranking/', views.animalRanking, name='animal_ranking'),
     path('animal/write/', views.animalWrite, name='animal_write'),
     path('registration/randing/', views.randing_page, name='randing_page'),
-
+    path('tanalyze/', views.Tanalyze, name='Tanalyze'),
     
     
 
@@ -62,6 +64,11 @@ urlpatterns = [
     path('group/create/', views.createGroup, name='createGroup'),
     path('group/list/', views.listGroup, name='listGroup'),
     path('group/forum/', views.forumGroup, name='forumGroup'),
+    
+    path('group/create_forum_question/', views.create_forum_question, name='create_forum_question'),
+    path('group/forum-get/', views.forum, name='forum'),
+    path('group/fetch_more_posts/', views.fetch_more_posts, name='fetch_more_posts'),
+    path('group/create_forum_answer/<int:question_id>/', views.create_forum_answer, name='create_forum_answer'),
 
 
     # 3. board
@@ -96,6 +103,9 @@ urlpatterns = [
     path('all_events/',views.all_events, name='all_events'),
     path('add_event/',views.add_event, name='add_event'),
     path('update/',views.update, name='update'),
+
+    path('patient_list/', views.patient_list, name='patient_list'),
+    path('add_patient/', views.add_patient, name='add_patient'),
 
 
 ]

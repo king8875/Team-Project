@@ -109,6 +109,66 @@ class Events(models.Model):
     class Meta:  
         db_table = "tblevents"
 
+class Tanalyze(models.Model):        
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Tanalyze_author')
+    side_sephalo = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    side_sephalo_line = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    front_sephalo = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True) 
+    panorama = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True) 
+    Front_face_photo = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True) 
+    smiley_face_photo = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True) 
+    degree_45_face_photo = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)  
+    Side_face_picture = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True) 
+    premises_on_the_right = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True) 
+    premises_on_the_front = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True) 
+    premises_on_the_left = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    occlusal_surface_of_the_maxilla = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    occlusal_surface_of_the_mandible = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    add_extra1 = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    add_extra2 = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    add_extra3 = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    add_extra4 = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    add_extra5 = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+    add_extra6 = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True)
+
+    #def __str__(self):
+        #return self.subject
+
+class PatientList(models.Model): 
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='PatientList_author')
+    idx = models.CharField(max_length=255,null=True,blank=True)
+    name = models.CharField(max_length=255,null=True,blank=True)
+    gender = models.CharField(max_length=255,null=True,blank=True)
+    birthday = models.CharField(max_length=255,null=True,blank=True)
+    progress = models.CharField(max_length=255,null=True,blank=True)
+    tag = models.CharField(max_length=255,null=True,blank=True)
+    icon = models.CharField(max_length=255,null=True,blank=True)
+    def __str__(self):
+        return self.author
+
+class ForumQuestion(models.Model):
+    modify_date = models.DateTimeField(null=True, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Forum_author_question')
+    subject = models.CharField(max_length=200)
+    content = models.TextField()
+    create_date = models.DateTimeField()
+    voter = models.ManyToManyField(User, related_name='Forum_voter_question')  # 추천인 추가
+    category = models.ForeignKey(Category,null=True, on_delete=models.CASCADE, related_name='Forum_category_question')
+    forumimg = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True) 
+
+    def __str__(self):
+        return self.subject
+
+
+class ForumAnswer(models.Model):
+    modify_date = models.DateTimeField(null=True, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Forum_author_answer')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    content = models.TextField()
+    create_date = models.DateTimeField()
+    voter = models.ManyToManyField(User, related_name='Forum_voter_answer')
+
+# Create your models here.
 
 
 # Create your models here.

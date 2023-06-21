@@ -1,2 +1,405 @@
-<!-- 그룹 -> (포럼) -->
-<div>포럼</div>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- 광고바 carousel 시작 -->
+<!-- <div class="row">
+    <div id="carouselExampleIndicators" class="col-10 col-xl-5 carousel slide mt-4" >
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{%static 'img/black.jpg' %}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{%static 'img/blue.jpg' %}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{%static 'img/green.png' %}" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+    </div> -->
+    <!-- 광고바 carousel 종료 -->
+    
+    
+    
+    <div class="col-12 col-xl-8 infinite-container">
+      <h1>Forum</h1>
+    
+      <div class="forum-post-input">
+    
+    
+        <form id="forum-form">
+    
+          <label for="title-input">title:</label>
+          <input type="text" id="title-input"   required>
+    
+          <label for="content-input">content:</label>
+          <textarea id="content-input" required></textarea>
+    
+          <label for="image-input">Image:</label>
+          <input type="file" id="image-input">
+    
+          <button type="submit">글 작성</button>
+        </form>
+    
+        <div id="forum-posts"></div>
+    
+      </div>
+    
+    
+    
+        {% for question in questions %}
+        <div class="row align-items-center">
+    
+        <div class="question">
+    
+          <div class="question-header">
+    
+            <div class="profile-img" >
+              <img alt="Example Image" style="width: 100%; height: 100%; border-radius: 50%;">
+            </div>
+            <h3 class="question-subject">{{ question.subject }}</h3>
+            <div class="question-footer">
+              <p class="question-author">작성자: {{ question.author }}</p>
+              <p class="question-date">{{ question.create_date }}</p>
+    
+            </div>
+    
+          </div>
+    
+          <div class="question-content">
+            <p>{{ question.content }}</p>
+          </div>
+    
+    
+    
+    
+          <!-- <div id="answer-form">
+          <form method="post">
+            {% csrf_token %}
+            <textarea name="content" required></textarea>
+            <button type="submit">댓글 작성</button>
+          </form>
+          </div> -->
+    
+          <!-- <form action="{% url 'pybo:expert_answer_create' question.id %}" method="post"> -->
+    
+         <!-- 답변 등록 -->
+         <form method="post" id="answer-form">
+          {% csrf_token %}
+           <!-- 오류표시 Start -->
+           {% if form.errors %}
+           <div class="alert alert-danger" role="alert">
+               {% for field in form %}
+               {% if field.errors %}
+    
+               <div>
+                   <strong>{{ field.label }}</strong>
+                   {{ field.errors }}
+               </div>
+               {% endif %}
+               {% endfor %}
+           </div>
+           {% endif %}
+           <!-- 오류표시 End -->
+          <div class="mb-3">
+              <label for="content">답변내용</label>
+              <textarea {% if not user.is_authenticated %}disabled{% endif %}
+                name="content" id="content" class="form-control" rows="10" style="width: 100%; height: 30px;"></textarea>
+          </div>
+          <input type="submit" value="답변등록" class="btn btn-primary" style="float: right;">
+        </form>
+    
+    
+    
+    
+        </div>
+        </div>
+        {% endfor %}
+    
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+
+const form = document.getElementById('forum-form');
+const postsContainer = document.getElementById('forum-posts');
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault(); // 기본 제출 동작 방지
+
+  // 제목과 내용을 가져오기
+  const titleInput = document.getElementById('title-input');
+  const contentInput = document.getElementById('content-input');
+
+  const subject = titleInput.value;
+  const content = contentInput.value;
+
+  // 제목과 내용이 비어있는지 확인
+  if (subject === '' || content === '') {
+    alert('제목과 내용을 입력해주세요.');
+    return;
+  }
+
+
+  // Ajax 요청 보내기 게시물 등록
+  $.ajax({
+    url: 'http://127.0.0.1:8000/pybo/group/create_forum_question/',  // Django URL 설정에 맞게 수정해야 함
+    method: "POST",
+    data: {
+      subject: subject,
+      content: content,
+      
+    },
+    success: function(response) {
+      // 성공적으로 저장되면 새로운 게시물 요소 생성
+      const postElement = document.createElement('div');
+      postElement.classList.add('post');
+      postElement.innerHTML = `
+        <h3>${subject}</h3>
+        <p>${content}</p>
+        <p>작성자: ${response.author}</p>
+        <p>작성일: ${response.create_date}</p>
+      `;
+      alert('게시물을 작성했습니다');
+
+      console.log("success");
+
+  
+      // 게시물 요소를 컨테이너에 추가
+      postsContainer.appendChild(postElement);
+
+      // 입력 필드 초기화
+      form.reset();
+    },
+    error: function(error) {
+      alert('게시물을 저장하는 동안 오류가 발생했습니다.');
+      console.log(error);
+    }
+  });
+});
+
+
+// 댓글 작성 폼 제출 이벤트를 가로채고 Ajax 요청 보내기
+$('#answer-form').on('submit', function(event) {
+  event.preventDefault(); // 기본 제출 동작 방지
+
+  const form = $(this);
+  const formData = form.serialize(); // 폼 데이터 가져오기
+
+  $.ajax({
+    url: 'http://127.0.0.1:8000/pybo/group/create_forum_answer/',  // Django URL 설정에 맞게 수정해야 함
+    method: 'POST',
+    data: formData,
+    success: function(response) {
+      // 성공적으로 댓글이 저장되면 새로운 댓글 요소 생성
+      const answerElement = $('<div class="answer">');
+      answerElement.html(`
+        <p>${response.content}</p>
+        <p>작성자: ${response.author}</p>
+        <p>작성일: ${response.create_date}</p>
+      `);
+
+      // 댓글 목록에 새로운 댓글 요소 추가
+      $('#answers').append(answerElement);
+
+      // 입력 필드 초기화
+      form.find('textarea').val('');
+    },
+    error: function(error) {
+      alert('댓글을 저장하는 동안 오류가 발생했습니다.');
+      console.log(error);
+    }
+  });
+});
+
+
+
+// $(window).scroll(function() {
+//   if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+//     // 페이지 하단에 도달 시 Ajax 요청 보내기
+//     $.ajax({
+//       url: 'http://127.0.0.1:8000/pybo/group/fetch_more_posts/',  // 수정된 URL
+//       method: "GET",
+//       data: {
+//         last_question_id: lastQuestionId  // 마지막으로 로드한 질문의 ID를 전달
+//       },
+//       success: function(response) {
+
+//         console.log("ewfewfwefwe")
+//         // 성공적으로 데이터를 가져왔을 때 처리 로직
+//         // 가져온 데이터를 기반으로 게시물을 동적으로 추가
+//       },
+//       error: function(error) {
+//         alert('게시물을 더 가져오지 못했습니다');
+//       }
+//     });
+//   }
+// });
+
+
+ 
+
+</script>
+
+
+
+<style>
+
+.forum-input {
+  margin: 20px auto;
+  width: 80%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.forum-input h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#forum-form {
+  margin-bottom: 20px;
+  background: white;
+}
+
+#forum-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+#forum-form input[type="text"],
+#forum-form textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#forum-form textarea {
+  height: 100px;
+}
+
+#forum-form button {
+  width: 20%;
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 80%;
+  
+}
+
+.forum-posts {
+  margin-top: 20px;
+}
+
+.question {
+
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px 10px;
+  margin-top: 10px;
+  
+}
+
+.question-header {
+  padding: 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: row; /* 기본값 */
+  
+}
+
+
+.question-subject {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  block-size: fit-content;
+}
+
+
+.question-date {
+  font-size: 10px;
+  color: #777;
+  margin: 0;
+
+}
+
+.question-content {
+  padding: 10px;
+}
+
+.question-content p {
+  color: #555;
+  margin: 0;
+}
+.question-footer {
+  padding-right: 10px;
+  padding-left: 10px;
+
+  background-color: #ffffff;
+  /* border-top: 1px solid #e0e0e0; */
+}
+
+.question-author {
+  font-size: 10px;
+  color: #777;
+  margin: 0;
+}
+/* .forum-posts1{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 200px;
+  margin: auto;
+} */
+.forum-post-input{
+  padding: 10px 10px;
+  width: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;  
+}
+.profile-img{
+  border-radius: 50%; 
+  max-width: 50px;
+  background: gray;
+
+}
+
+
+</style>
+{% endblock %}
+
