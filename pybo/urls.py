@@ -47,6 +47,7 @@ urlpatterns = [
     path('animal/ranking/', views.animalRanking, name='animal_ranking'),
     path('animal/write/', views.animalWrite, name='animal_write'),
     path('registration/randing/', views.randing_page, name='randing_page'),
+
     
     
 
@@ -89,7 +90,13 @@ urlpatterns = [
 
     # 7. setting
     path('setting/', views.setting, name='setting'),
-    
+
+
+    path('cal/',views.calendar, name='calendar'),
+    path('all_events/',views.all_events, name='all_events'),
+    path('add_event/',views.add_event, name='add_event'),
+    path('update/',views.update, name='update'),
+
 
 ]
 

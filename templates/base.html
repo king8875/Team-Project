@@ -93,8 +93,8 @@
 				  </li>
 				  <li class="nav-item dropdown  me-3">
 					<a class="nav-link dropdown-toggle-no-create" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						이름
-                        <img src="{%static 'img/user.png' %}" width="50px" />
+            {{ user.username }}
+                        <img src="{%static 'img/user.png' %}" width="45px" />
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 					  <li><a class="dropdown-item" href="{% url 'pybo:user_profile' %}">마이페이지</a></li>
@@ -165,9 +165,9 @@
                 </li>
         
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'pybo:calendar' %}">
                             <i class="bi bi-calendar"></i>
-                        Calender(연결x)
+                        훈련 Calender
                         </a>
                     </li>
         
