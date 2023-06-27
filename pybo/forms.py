@@ -1,6 +1,8 @@
 from django import forms
 from pybo.models import Question, Answer, Expert, Expert_answer, Pet
 from django.db import connection
+from .models import ForumQuestion
+from .models import ForumAnswer
 
 class QuestionForm(forms.ModelForm):
     class Meta:
@@ -55,3 +57,31 @@ class PetForm(forms.ModelForm):
     class Meta:
         model = Pet
         fields = ['photo']
+
+class ForumQuestionForm(forms.ModelForm):
+    class Meta:
+        model = ForumQuestion
+        fields = ['subject', 'content', 'category','forumimg']
+
+class ForumAnswerForm(forms.ModelForm):
+    class Meta:
+        model = ForumAnswer
+        fields = ['content']
+        labels = {
+            'content': '뒙변내용',
+        }
+        from django import forms
+from .models import PatientList
+
+class PatientForm(forms.ModelForm):
+    class Meta:
+        model = PatientList
+        fields = ['name', 'gender', 'birthday', 'progress', 'tag']
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '이름'}),
+            'gender': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '성별'}),
+            'birthday': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '생년월일'}),
+            'progress': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '진행 상태'}),
+            'tag': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '태그'}),
+        }
