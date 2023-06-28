@@ -1,5 +1,5 @@
 from django import forms
-from pybo.models import Question, Answer, Expert, Expert_answer, Pet
+from pybo.models import Question, Answer, Expert, Expert_answer, Pet,Profile_img
 from django.db import connection
 from .models import ForumQuestion
 from .models import ForumAnswer
@@ -85,3 +85,8 @@ class PatientForm(forms.ModelForm):
             'progress': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '진행 상태'}),
             'tag': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '태그'}),
         }
+
+class ProfileImgForm(forms.ModelForm):
+    class Meta:
+        model = Profile_img
+        fields = ('Profile_img',)

@@ -30,6 +30,8 @@ from .models import ForumAnswer
 
 from .forms import ForumQuestionForm
 from .forms import ForumAnswerForm
+from .forms import ProfileImgForm
+
 
 
 class MovieViewSet(viewsets.ModelViewSet):
@@ -1050,3 +1052,16 @@ def fetch_more_posts(request):
         ]
     }
     return render(request, '2.group/forum.html', data)
+
+
+def upload_profile_img(request):
+    if request.method == 'POST':
+        form = ProfileImgForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile_img = form.save(commit=False)
+            profile_img.author = request.user
+            profile_img.save()
+            return redirect('pybo/user_profile.html')
+    else:
+        form = ProfileImgForm()
+    return render(request, 'pybo/user_profile.html', {'form': form})
