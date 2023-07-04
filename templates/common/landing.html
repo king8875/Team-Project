@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <title>landing page</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row " id="jumbotron_row" style="margin-top: 10%;">
+
+            
+            <div class="col-xl-7" id="jumbotron_col_for_featurette" style="text-align: left; margin-bottom: 0px;">
+
+              <img class="img-fluid mx-auto" src="../../media/photos/2023/03/21/ai.png" >
+
+            </div>
+
+            <div class="col-xl-5 " id="main_heading" style="margin-top: 10%;" >
+
+
+                <div class="mb-4 wc-pc-only" style="text-align: center;">
+    
+                  <img src="../../static/img/logo.png" id="navbar_brand_img2" class="" alt="..." style="height: 70px; margin-top: -4px; margin-right: 2%;">
+                </div>
+                <h3 class="main-heading" style="text-align: center; padding-top: 0px;">반려동물 <br>진단 커뮤니티</h3> 
+
+                        
+                <div class="row main-buttons" >
+                  <div class="col-7" id="main_button_1" style="padding-left: 0px; padding-right: 5px;">
+                    <a href="{% url 'common:signup' %}" class="btn btn-block btn-hover color-3 btn-lg" role="button">무료 회원가입 »</a>                   
+                  </div>
+                  <div class="col-5" id="main_button_2" style="padding-left: 5px; padding-right: 0px;">
+                    <a href="{% url 'common:login' %}" class="btn btn-block border-gradient color-1 btn-lg ml-1" role="button">로그인</a>
+                  </div>
+                </div>
+
+                <hr class="main-buttons-divider" style="display: flex;">
+
+                <div class="row main-buttons forum_banner mb-4" style="display: none;">
+                  <div class="col-12" style="padding: 0px;">
+                    <a href="/ko/student/3/" class="btn btn-block border-gradient color-1 btn-lg" role="button">뉴스 및 업데이트</a>
+                  </div>                    
+                </div>                  
+
+                
+            
+
+
+            </div>
+
+
+
+          </div>
+
+    </div>
+
+
+</body>
+</html>

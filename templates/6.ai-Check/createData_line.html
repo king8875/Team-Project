@@ -1,0 +1,356 @@
+<!-- A.I. Check -> (데이터 생성) -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class='main-content' >
+    <div class="row">
+        <div>
+            <div class = "row">
+                <ol class="breadcrumb pl-2" style="margin-left: 3%; margin-top: 2%;">          
+                    <li class="breadcrumb-item"><a href="">환자 목록</a></li>  
+                    <li class="breadcrumb-item"><a href="">환자</a></li>  
+                    <li class="breadcrumb-item active">
+                      <div class="btn-group mr-3" style="height: 100%; display: inline-block; margin-top: -10px;">
+                        <div class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="line-height: 1;">
+                              PA
+                            <span class="caret"></span>
+                            </a>
+                          
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href=""> 계측</a>
+                                <a class="dropdown-item" href=""> 분석</a>
+                                <a class="dropdown-item" href=""> PA<sup><span class="badge badge-premium" style="margin-left: 3px;">PREMIUM</span></sup></a>
+                                <a class="dropdown-item" href=""> 측모분석<sup><span class="badge badge-premium" style="margin-left: 3px;">PREMIUM</span></sup></a>
+                                <a class="dropdown-item" href=""> 정모분석<sup><span class="badge badge-premium" style="margin-left: 3px;">PREMIUM</span></sup></a>  
+                                <a class="dropdown-item" href=""> 문제목록</a>
+                                <a class="dropdown-item" href=""> 치료</a>
+                                <a class="dropdown-item" href=""> 중첩</a>
+                                <a class="dropdown-item" href=""> 뷰어</a> 
+                                                                    
+                                <a class="dropdown-item" href=""> 케이스<sup><span class="badge badge-plus" style="margin-left: 3px;">PLUS</span></sup></a>
+                                      
+                                <a class="dropdown-item" href="">타임랩스<sup><span class="badge badge-plus" style="margin-left: 3px;">PLUS</span></sup></a> 
+                            </ul>
+                          </div>
+                      </div>
+                    </li>
+                </ol>
+
+            </div>
+            </div>
+
+            <div class="col-8  btn-wc-lg">
+                <div class="col-md-12 mobile-no-padding">
+                  <div class="card name-card" style="margin-bottom: 0px;">
+                    <div class="card-body name-card-body">
+                      <div class="row">
+                        <div class="col-md-10">
+          
+                        <p class="pl-2" style="margin-bottom: 0px; display: inline-block;"><span style="font-size: 24px; font-weight: bold;">
+
+                              켈베로스
+                              (존나쌤)</span> &nbsp;&nbsp; 남자 &nbsp;&nbsp; 123 세, 11 개월</p>
+                        <a href="" type="button" class="btn btn-sm btn-white ml-3 wc-pc-only" style="padding: 5px; display: inline-block;">
+                          <img src="https://d3j8buaepzkvqi.cloudfront.net/img/tsp_icon%2Blogo_b.png" class="toosapp-icon" width="" height="16" style="margin-top:0px;margin-left:0px;margin-bottom: 2px;">
+                        </a>
+          
+                      </div>
+          
+                        <div class="col-md-2">
+                         <div class="btn-group btn-wc-lg float-right" style="height: 100%;">
+                          <div class="dropdown">
+                              <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 100%; padding-top: 0px; padding-bottom: 0px;">
+                             2022-12-26 
+                              <span class="caret"></span>
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-28px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                      <a class="dropdown-item" href=""> 2022-12-26</a>
+                              </div>
+          
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+              
+
+            <!--                                                          이름 바                                                        -->
+
+            <div class="tab-content">
+              <div class="row">
+                <div class="col-md-12" id="tracing-col">
+                  <div class="card mt-3" id="tracing-card-body">
+                    <ul class="nav nav-tabs scroll" style="margin-right: 25px; margin-bottom: 15px; font-size: 14px;">
+                      <li class="nav-item"><a href="" class="goto_digitization nav-link active">계측</a>
+                      </li>
+                      <li class="nav-item"><a href="" class="goto_analysis nav-link">분석</a>
+                      </li>
+                      <li class="nav-item"><a href="" class="goto_face_analysis nav-link">PA<sup><span class="badge badge-premium" style="margin-left: 3px;">P</span></sup></a></li>
+                      <li class="nav-item">
+                        <div class="nav-item dropdown">
+                            <!-- Toggle -->
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              연조직
+                              <sup>
+                                <span class="badge badge-premium" style="margin-left: 3px;">P</span>
+                              </sup>
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <a class="dropdown-item goto_face_treatment" href="">측모분석
+                                <sup>
+                                  <span class="badge corner-badge-premium" style="position: relative !important; right: 0px; top: 2px !important;">PREMIUM</span>
+                                </sup>
+                              </a>
+                              <a class="dropdown-item goto_face_analysis" href="">정모분석<sup><span class="badge corner-badge-premium" style="position: relative !important; right: 0px; top: 2px !important;">PREMIUM</span></sup></a>
+                            </ul>    
+                        </div>
+                      </li>
+                      <li class="nav-item"><a href="" class="goto_diagnosis nav-link">문제목록</a>
+                      </li>
+                      <li class="nav-item"><a href="" class="goto_treatment nav-link">치료</a></li>
+                      <li class="nav-item">
+                          <div class="nav-item dropdown ">
+                            <a href="" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              중첩
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <a class="dropdown-item goto_superimposition" href="">측면 세팔로</a>
+                              <a class="dropdown-item" href="">측면 얼굴사진<sup><span class="badge corner-badge-plus" style="position: relative !important; right: 0px; top: 2px !important;">PLUS</span></sup></a>
+                            </ul> 
+                          </div>
+                      </li>
+                      
+                      <li class="nav-item"><a href="/ko/records/j3XjVDPGiP9/2022-12-26/gallery/lateral_ceph/?tab=template" class="goto_gallery nav-link">뷰어</a>
+                      </li>
+                      <li class="nav-item"><a href="/ko/records/j3XjVDPGiP9/2022-12-26/case_pro/" class="goto_case nav-link" data-toggle="tooltip" title="" data-original-title="웹셉 플러스에서는 더욱 다양한 포맷으로 자유롭게 임상증례를 정리할 수 있습니다.">케이스<sup><span class="badge badge-plus" style="margin-left: 3px;">P</span></sup></a>
+                      </li>
+                      <li class="nav-item" style="margin-left: 0px;"><a href="/ko/records/j3XjVDPGiP9/2022-12-26/timelapse/" class="goto_timelapse nav-link" data-toggle="tooltip" title="" data-original-title="치료 경과 과정을 자동으로 타임랩스 영상으로 만드실 수 있습니다. 손쉽게 치아교정 바이럴 영상을 만들어 보세요.">타임랩스<sup><span class="badge badge-plus" style="margin-left: 3px;">P</span></sup></a>
+                      </li>
+                  </ul>
+                  <!-- 네브바                                                                                                  -->
+
+                  <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+                    <div class="col-12" style="padding:0px">
+                      <div class="imgContainer" style="padding-left: 3%;">
+                        <a href="" class="zoomplecross" id="atag" style="cursor: default;" >
+                          
+                          <img id="img" class="col-11" src="{{ result_image_url }}" alt="Processed Image" >
+                         
+                        </a>
+
+                      </div>
+
+                    </div>
+
+
+
+                  </div>
+                  <!-- 사진 인풋                                                                                                        -->
+
+                  </div>
+
+                  
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          
+          <div class="col-3" style="border: 3px solid rgb(103, 241, 241);">
+            <div class="mt-3"><h3>인공지능 자동 트레이싱</h3></div>
+            <div class="mt-2"><h6>인공지능이 수 초 이내에 자동으로 트레이싱을 완료해줍니다.</h6></div>
+            <button type="button" class="btn col-12 mb-3 mt-4" style="background-color: rgb(214, 236, 251);">자동계측</button>
+            <!-- {% url 'pybo:process_image' %}-->
+            <div class="d-flex justify-content-around mb-3">
+              <button type="button" class="btn col-5" style="background-color: rgb(214, 236, 251);">수정</button>
+              <div class="col-1"></div>
+              <button type="button" class="btn col-5" style="background-color: rgb(214, 236, 251);">초기화</button>
+            </div>
+            <div class="d-flex justify-content-around mb-3">
+              <button type="button" class="btn btn-success col-5">추가 계측점</button>
+              <div class="col-1"></div>
+
+              <button type="button" class="btn btn-success col-5">계측점 테이블</button>
+            </div>
+            <button type="button" class="btn col-12" style="background-color: rgb(214, 236, 251);">저장</button>
+
+            
+
+            
+
+
+            <hr style="margin-top: 10%;"> 
+
+            <div>
+
+              <div class="d-flex flex-column mb-3" style="margin-left: 3%;">
+                밝기 조절
+                <input type="range" class="custom-range d-flex justify-content-center" min="30" max="170" value="100" id="slider1" title="Minimum Value: 30" data-toggle="tooltip" data-placement="top">
+                <div class="text-center mt-3">
+                  <span class="mr-3">30</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span class="flex-grow-1">100</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span class="ml-3">170</span>
+                </div>
+            
+              </div>
+            
+              <div class="d-flex flex-column mb-3" style="margin-left: 3%; margin-top: 10%;">
+                대조 조절
+                <input type="range" class="custom-range" min="50" max="150" value="100" id="slider2" title="Minimum Value: 50" data-toggle="tooltip" data-placement="top">
+                <div class="text-center mt-3">
+                  <span class="mr-3">50</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span class="flex-grow-2">100</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span class="ml-3">150</span>
+                </div>
+            
+              </div>
+          </div>
+
+          <hr style="margin-top: 10%;">
+
+          <div class='col-12' id="right-div" style="border: 1px solid blue; margin-top: 5%;">
+            <div id="enlarged-image" style="height: 400px; border: 1px solid black; z-index: 9999;">
+            </div>
+          </div>
+
+          </div>
+
+      </div>
+              
+        
+        
+        
+
+
+    </div>
+{% endblock %}
+
+{% block script %}
+
+    
+<script>
+    const img = document.getElementById('img');
+    const rightDiv = document.getElementById('right-div');
+    const enlargedImage = document.getElementById('enlarged-image');
+
+    img.addEventListener('mousemove', function(event) {
+    const x = event.offsetX;
+    const y = event.offsetY;
+    const imageRect = img.getBoundingClientRect();
+    const ratioX = img.naturalWidth / imageRect.width;
+    const ratioY = img.naturalHeight / imageRect.height;
+    const posX = (x + img.offsetLeft) * ratioX;
+    const posY = (y + img.offsetTop) * ratioY ;
+    const halfWidth = rightDiv.offsetWidth / 1;
+    const halfHeight = rightDiv.offsetHeight / 1;
+    let bgPosX = -posX + halfWidth;
+    let bgPosY = -posY + halfHeight;
+    console.log((img.offsetLeft))
+    
+
+    // 경계를 벗어나는 부분에 대해서는 계산하지 않음
+    if (bgPosX > 0) {
+        bgPosX = 0;
+    } else if (bgPosX < -img.naturalWidth + rightDiv.offsetWidth) {
+        bgPosX = -img.naturalWidth + rightDiv.offsetWidth;
+    }
+    if (bgPosY > 0) {
+        bgPosY = 0;
+    } else if (bgPosY < -img.naturalHeight + rightDiv.offsetHeight) {
+        bgPosY = -img.naturalHeight + rightDiv.offsetHeight;
+    }
+
+    enlargedImage.style.backgroundImage = `url('${img.src}')`;
+    enlargedImage.style.backgroundPosition = `${bgPosX}px ${bgPosY}px`;
+    
+    enlargedImage.style.height = '400px'; // 크기 고정
+    rightDiv.style.background = 'none';
+    enlargedImage.style.display = 'block';
+    });
+
+    img.addEventListener('mouseleave', function() {
+    rightDiv.style.background = 'gray';
+    rightDiv.style.height = '400px';
+    enlargedImage.style.display = 'none';
+    }); 
+
+
+    var slider1 = document.getElementById("slider1");
+    var slider2 = document.getElementById("slider2");
+    const middleValue1 = document.querySelector('.flex-grow-1');
+    const middleValue2 = document.querySelector('.flex-grow-2');
+    middleValue1.textContent = slider1.value;
+    middleValue2.textContent = slider2.value;
+
+    slider1.oninput = function() {
+    var brightness = this.value;
+    img.style.filter = "brightness(" + brightness + "%)";
+    middleValue1.textContent = this.value;
+    }
+
+    slider2.oninput = function() {
+    var contrast = this.value;
+    img.style.filter = "contrast(" + contrast + "%)";
+    middleValue2.textContent = this.value;
+    }
+</script>
+
+<style>
+    .badge-premium {
+        background: linear-gradient(40deg,#ff7826,#ffcd03) !important;
+        color: #fff;
+        margin-left: 1px;
+        margin-top: -8px;
+    }
+    .badge-plus {
+        background: linear-gradient(40deg,#2096ff,#05ffa3) !important;
+        color: #fff;
+        font-weight: bold;
+        margin-left: 1px;
+        margin-top: -8px;
+    }
+    .corner-badge-premium {
+        background: linear-gradient(40deg,#ff7826,#ffcd03) !important;
+        color: #000;
+        margin-left: 3px;
+        position: absolute !important;
+        right: -2px;
+        top: -6px !important;
+        font-size: 70%;
+        border: 2px solid white;
+        font-weight: bold;
+        color: white;
+        border-radius: 2rem;
+    }
+
+    .corner-badge-plus {
+        background: linear-gradient(40deg,#2096ff,#05ffa3) !important;
+        color: #000;
+        margin-left: 3px;
+        position: absolute !important;
+        right: -2px;
+        top: -6px !important;
+        font-size: 70%;
+        border: 2px solid white;
+        font-weight: bold;
+        color: white;
+        border-radius: 2rem;
+    }
+
+</style>
+
+{% endblock %}

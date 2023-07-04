@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+<!-- {% extends 'base.html' %} -->
 {% load pybo_filter %}
 {% block content %}
 {% load static %}
@@ -8,40 +8,36 @@
     <div id="content" class="border-top border-secondary"></div>
     <div class="content_block">
     <h5 class="border-bottom pl-2 pb-3 my-2">{{ category.description }}
-        <a href="{% url 'pybo:expert_create' category.name %}" class="btn btn-primary" style="margin-left: 65%;">글 등록하기</a>  
+        <a href="{% url 'pybo:expert_create' category.name %}" class="btn btn-primary" style="margin-left:80%; background-color: #5429FF; color: white; border: none;">글 등록하기</a>  
     </h5>
-    <div class="row justify-content-between my-3"></div>
     
-                        
+        <div class="container my-3" style="flex-wrap: wrap; ">
 
-        <div class="container my-3">
-            <div class="hiyyom" style="display:flex; flex-wrap: wrap; max-width: 1200px; min-height: 700px; user-select: auto;">
+        <div class="hiyyom" style="display: flex; min-height: 700px; user-select: auto; flex-wrap: wrap; ">
                 
         {% if question_list %}
         {% for question in question_list %}
-        <div class="card lift shadow" style="min-height:300px; min-width:400px; overflow: hidden; border-radius: 1.25rem; user-select: auto; margin: 2%;">
+        <div class="card lift shadow" style="min-height:300px; max-height: 300px; min-width:300px; max-width: 300px ;overflow: hidden; border-radius: 1.25rem; user-select: auto; margin: 2%; ">
             {% if question.thumbnail %}
-            <a style="user-select: auto;"><img src="{{ question.thumbnail.url }}" alt="{{question.subject}}" id="image_57" class="img-fluid" style="object-fit: cover; height: 150px; width: 100%; user-select: auto;"></a>
+            <a href="{% url 'pybo:expert_detail' question.id %}" style="user-select: auto;">
+                <img src="{{ question.thumbnail.url }}" alt="{{question.subject}}"  class="img-fluid" style="border-radius: 10px; object-fit: cover; height: 250px; width: 100%; user-select: auto;">
+            </a>
             {% endif %}
-            <div class="card-body" style="user-select: auto;">
-                <div class="row align-items-center" style="user-select: auto;">
-                    <div class="col" style="user-select: auto;">
-
-                        <!-- 작성자 -->
-                        <div class="card-title mb-3 name" style="font-size:10px; user-select: auto;">
-                            <a style="user-select: auto;"> <span class="text-uppercase" style="user-select: auto;">{{ question.author.username }}</span></a>
-                        </div>
-
+            <div class="card-body" style="user-select: auto; width:auto; ">
+                <div class="row align-items-center" style="user-select: auto; ">
+                    <div class="col" style="user-select: auto; display: inline-block;">
                         <!-- 제목 -->
-                        <div class="card-title mb-2 name" style="font-size:30px; user-select: auto;">
-                            <a href= {% url 'pybo:expert_detail' question.id %} style="user-select: auto;">{{ question.subject }}</a>
+                        <div class="card-title mb-2 name" style="font-size:20px;  user-select: auto;float: left;">
+                            <a href= "{% url 'pybo:expert_detail' question.id %}" style="user-select: auto; text-decoration: none; font-weight: bold; color: black;">{{ question.subject }}</a>
                         </div>
-
+                         <!-- 작성자 -->
+                         <div class="card-title mb-3 name" style="font-size:10px; user-select: auto; float: right;">
+                            <a style="user-select: auto;"> 
+                                <span class="text-uppercase" style="user-select: auto;">{{ question.author.username }}</span>
+                            </a>
+                        </div>
                     </div>
-
                 </div> <!-- / .row -->
-
-
             </div> <!-- / .card-body -->
         </div>
         {% endfor %}

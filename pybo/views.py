@@ -17,8 +17,22 @@ from django.contrib.auth.forms import (
 )
 from django.db.models import Q
 from django.db.models import Count
-from .models import Post, Photo
+from .models import Post, Photo, Events
 import openai
+from django.http import JsonResponse
+import cv2
+from django.core.files.storage import default_storage
+from .models import Tanalyze
+from django.core.files import File
+from django.core.files.base import ContentFile
+from .models import ForumQuestion
+from .models import ForumAnswer
+
+from .forms import ForumQuestionForm
+from .forms import ForumAnswerForm
+from .forms import ProfileImgForm
+
+
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
@@ -174,7 +188,7 @@ def index3(request, category_name='qna'):
 
 
 def index2(request):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
    
     if request.method == "POST":
@@ -633,13 +647,14 @@ def createGroup(request):
     #print(category)
     return render(request, '2.group/create.html')
 
+@login_required(login_url='common:login')
 def forumGroup(request):
-    #question_list = Question.objects.order_by('-create_date')
-    #answer_list = Answer.objects.order_by('-create_date')
-    #category = Category.objects.order_by('id')
-    #context = {'category': category, 'question_list': question_list, 'answer_list' : answer_list}
-    #print(category)
-    return render(request, '2.group/forum.html')
+
+
+    questions = ForumQuestion.objects.all()
+    context = {'questions': questions}
+    return render(request, '2.group/forum.html', context)
+
 
 def listGroup(request):
     #question_list = Question.objects.order_by('-create_date')
@@ -784,3 +799,269 @@ def animalWrite(request):
     
     return render(request, 'pybo/animal_write.html')
 
+
+
+
+
+
+
+
+
+@login_required(login_url='common:login')
+def calendar(request):  
+    print('1')
+    #category = Events.objects.order_by('id')
+    author = request.user
+    print(author)
+    
+    all_events = Events.objects.filter(author=author)
+    print(all_events)
+    #all_events = Events.objects.all()
+    context = {
+        "events":all_events,
+    }
+    return render(request,'pybo/calendar.html',context)
+@login_required(login_url='common:login') 
+def all_events(request):   
+    print('2')
+    author = request.user   
+    print(author)                                                                                           
+    all_events = Events.objects.filter(author=author)                                                                             
+    out = []                                                                                                             
+    for event in all_events:                                                                                             
+        out.append({                                                                                                     
+            'title': event.name,                                                                                         
+            'id': event.id,                                                                                              
+            'start': event.start.strftime("%m/%d/%Y, %H:%M:%S"),                                                         
+            'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),                                                             
+        })                                                                                                               
+                                                                                                                      
+    return JsonResponse(out, safe=False)                                                                                                              
+                                                                                                                      
+ 
+@login_required(login_url='common:login') 
+def add_event(request):
+    print('3')
+    author = request.user
+    print(author)
+    start = request.GET.get("start", None)
+    end = request.GET.get("end", None)
+    title = request.GET.get("title", None)
+    event = Events(name=str(title), start=start, end=end, author = author)
+    event.save()
+    data = {}
+    return JsonResponse(data)
+
+@login_required(login_url='common:login') 
+def update(request):
+    print('4')
+    start = request.GET.get("start", None)
+    end = request.GET.get("end", None)
+    title = request.GET.get("title", None)
+    id = request.GET.get("id", None)
+    event = Events.objects.get(id=id)
+    event.start = start
+    event.end = end
+    event.name = title
+    event.save()
+    data = {}
+    return JsonResponse(data)
+@login_required(login_url='common:login') 
+def remove(request):
+    id = request.GET.get("id", None)
+    event = Events.objects.get(id=id)
+    event.delete()
+    data = {}
+    return JsonResponse(data)
+
+# 환자 post views.py 코드
+from django.shortcuts import render
+from .models import PatientList, Tanalyze
+
+
+def Tanalyze(request):
+    tanalyze = Tanalyze.objects.all()
+    context = {
+        'tanalyze': tanalyze
+    }
+    return JsonResponse(context)
+
+
+
+
+def patient_list(request):
+    patients = PatientList.objects.all()
+    context = {
+        'patients': patients
+    }
+    return render(request, 'patient_list.html', context)
+
+
+# 신규 환자 생성
+from django.shortcuts import render, redirect
+from .forms import PatientForm
+
+def add_patient(request):
+    if request.method == 'POST':
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            patient = form.save(commit=False)
+            patient.author = request.user
+            patient.save()
+            return redirect('patient_list')  # 'patient_list'를 환자 목록 뷰의 URL 이름으로 바꾸세요
+    else:
+        form = PatientForm()
+    return render(request, 'your_template.html', {'form': form})
+
+
+
+
+
+
+
+
+def process_image_function(img):
+    # 이미지 처리
+    x = cv2.Sobel(img, cv2.CV_16S, 1, 0)
+    y = cv2.Sobel(img, cv2.CV_16S, 0, 1)
+    absX = cv2.convertScaleAbs(x)  # uint8로 변환
+    absY = cv2.convertScaleAbs(y)
+    result = cv2.addWeighted(absX, 0.5, absY, 0.5, 0)
+
+    return result
+
+
+
+def process_image(request):
+    # Tanalyze 모델 인스턴스 가져오기
+    tanalyze_instance = Tanalyze.objects.all()[1]  # 예시로 첫 번째 인스턴스를 가져옴
+
+    # 이미지 파일 읽기
+    image = tanalyze_instance.side_sephalo  
+    # 이미지 파일 읽기
+    img = cv2.imread(image.path)
+    # 이미지 처리
+    result = process_image_function(img)
+
+    # 결과 이미지를 저장할 필드에 할당
+    result_image = ContentFile(cv2.imencode('.jpg', result)[1].tostring())
+
+    # Tanalyze 모델 인스턴스 업데이트
+    tanalyze_instance.side_sephalo_line.save('result.jpg', result_image)
+  
+    # 결과 이미지의 URL을 변수에 할당
+    result_image_url = tanalyze_instance.side_sephalo_line.url
+
+    context = {'result_image_url': result_image_url}
+
+    return render(request, '6.ai-Check/createData_line.html', context)
+
+@login_required(login_url='common:login')
+def create_forum_question(request):
+    if request.method == "POST":
+        subject = request.POST.get('subject')
+        content = request.POST.get('content')
+        form = ForumQuestionForm(request.POST, request.FILES)
+        # ForumQuestion 모델에 데이터 저장
+        forum_question = ForumQuestion(
+            author=request.user,
+            subject=subject, 
+            content=content,
+            modify_date=None,
+            create_date=timezone.now(),
+            category=None,
+            )
+        forum_question.save()
+        context = {'forum_question': forum_question}
+
+
+    return render(request, '2.group/forum.html', context)
+
+# @login_required(login_url='common:login')
+# def create_forum_answer(request, answer_id):
+#     if request.method == 'POST':
+#         question = ForumAnswer.objects.get(pk=answer_id)
+#         author = request.user
+#         content = request.POST['content']
+#         create_date = timezone.now()
+
+#         answer = ForumAnswer(question=question, author=author, content=content, create_date=create_date)
+#         answer.save()
+        
+#         return redirect('2.group/forum.html', answer_id=answer_id)
+    
+
+@login_required(login_url='common:login')
+def create_forum_answer(request, question_id):
+    question = get_object_or_404(ForumAnswer, pk=question_id)
+    if request.method == "POST":
+        form = ForumAnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.author = request.user  # author 속성에 로그인 계정 저장
+            answer.create_date = timezone.now()
+            answer.question = question
+            answer.save()
+            print(question.id)
+            return redirect('{}#answer_{}'.format(
+                resolve_url('2.group/forum.html', question_id=question.id), answer.id))
+    else:
+        form = ForumAnswerForm()
+    context = {'question': question, 'form': form}
+    return render(request, '2.group/forum.html', context)
+
+
+
+
+
+@login_required(login_url='common:login')
+
+def forum(request):
+    if request.method == 'POST':
+        form = ForumQuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.author = request.user
+            question.save()
+            return redirect('forum')
+    else:
+        form = ForumQuestionForm()
+    questions = ForumQuestion.objects.all()
+    context = {'questions': questions}
+    return render(request, '2.group/forum.html', context)
+
+
+
+def fetch_more_posts(request):
+    last_question_id = request.GET.get('last_question_id')  # 마지막으로 로드한 질문의 ID를 가져옴
+
+    # 마지막으로 로드한 질문 ID보다 작은 ID를 가진 질문들을 가져옴
+    questions = ForumQuestion.objects.filter(id__lt=last_question_id).order_by('-create_date')[:10]
+
+    # 질문들을 JSON 형식으로 직렬화하여 응답
+    data = {
+        'questions': [
+            {
+                'id': question.id,
+                'subject': question.subject,
+                'content': question.content,
+                'author': question.author.username,
+                'create_date': question.create_date.isoformat(),
+            }
+            for question in questions
+        ]
+    }
+    return render(request, '2.group/forum.html', data)
+
+
+def upload_profile_img(request):
+    if request.method == 'POST':
+        form = ProfileImgForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile_img = form.save(commit=False)
+            profile_img.author = request.user
+            profile_img.save()
+            return redirect('pybo/user_profile.html')
+    else:
+        form = ProfileImgForm()
+    return render(request, 'pybo/user_profile.html', {'form': form})
