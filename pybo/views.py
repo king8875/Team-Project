@@ -651,8 +651,15 @@ def createGroup(request):
 def forumGroup(request):
 
 
-    questions = ForumQuestion.objects.all()
-    context = {'questions': questions}
+    # questions = ForumQuestion.objects.all()
+
+    questions = ForumQuestion.objects.all().order_by('-create_date')  # 최신순으로 정렬
+    photo = Photo.objects.all()
+    for question in questions:
+        
+        answers = ForumAnswer.objects.filter(question=question)
+        question.answers = answers
+    context = {'questions': questions, 'photo' : photo}
     return render(request, '2.group/forum.html', context)
 
 
@@ -977,6 +984,8 @@ def create_forum_question(request):
 
     return render(request, '2.group/forum.html', context)
 
+
+
 # @login_required(login_url='common:login')
 # def create_forum_answer(request, answer_id):
 #     if request.method == 'POST':
@@ -993,7 +1002,7 @@ def create_forum_question(request):
 
 @login_required(login_url='common:login')
 def create_forum_answer(request, question_id):
-    question = get_object_or_404(ForumAnswer, pk=question_id)
+    question = get_object_or_404(ForumQuestion, pk=question_id)
     if request.method == "POST":
         form = ForumAnswerForm(request.POST)
         if form.is_valid():
@@ -1003,12 +1012,61 @@ def create_forum_answer(request, question_id):
             answer.question = question
             answer.save()
             print(question.id)
-            return redirect('{}#answer_{}'.format(
-                resolve_url('2.group/forum.html', question_id=question.id), answer.id))
+            return redirect('pybo:forumGroup')
     else:
         form = ForumAnswerForm()
     context = {'question': question, 'form': form}
     return render(request, '2.group/forum.html', context)
+
+
+@login_required(login_url='common:login')
+def forum_question_vote(request, question_id):
+    question = get_object_or_404(ForumQuestion, qk=question_id)
+    if request.user == question.author:
+        messages.error(request, 'error')
+        return redirect('pybo:forumGroup')
+    else:
+        question.voter.add(request.user)
+    return render('2.group/forum.html')
+
+@login_required(login_url='common:login')
+def forum_answer_modify(request, answer_id):
+    answer = get_object_or_404(ForumAnswer, pk=answer_id)
+    if request.user != answer.author:
+        messages.error(request, '수정권한이 없습니다')
+        return redirect('pybo:forumGroup', question_id=answer.question.id)
+    if request.method == "POST":
+        form = ForumAnswerForm(request.POST, instance=answer)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.modify_date = timezone.now()
+            answer.save()
+            return redirect('pybo:forumGroup')
+
+    else:
+        form = ForumAnswerForm(instance=answer)
+    context = {'answer': answer, 'form': form}
+    return render(request, 'pybo/answer_form.html', context)
+
+@login_required(login_url='common:login')
+def forum_answer_delete(request, answer_id):
+    answer = get_object_or_404(ForumAnswer, pk=answer_id)
+    if request.user != answer.author:
+        messages.error(request, '삭제권한이 없습니다')
+
+    else:
+        answer.delete()
+    return redirect('pybo:forumGroup', question_id=answer.question.id)
+
+@login_required(login_url='common:login')
+def answer_delete(request, answer_id):
+    answer = get_object_or_404(Answer, pk=answer_id)
+    if request.user != answer.author:
+        messages.error(request, '삭제권한이 없습니다')
+    else:
+        answer.delete()
+    return redirect('pybo:detail', question_id=answer.question.id)
+    
 
 
 

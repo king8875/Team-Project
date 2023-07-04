@@ -172,7 +172,7 @@ class ForumQuestion(models.Model):
 class ForumAnswer(models.Model):
     modify_date = models.DateTimeField(null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Forum_author_answer')
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(ForumQuestion, on_delete=models.CASCADE)
     content = models.TextField()
     create_date = models.DateTimeField()
     voter = models.ManyToManyField(User, related_name='Forum_voter_answer')
