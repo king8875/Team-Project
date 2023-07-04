@@ -8,6 +8,8 @@ from .views import patient_list, add_patient
 app_name = 'pybo'
 
 urlpatterns = [
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
     #path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     #path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
@@ -69,6 +71,11 @@ urlpatterns = [
     path('group/forum-get/', views.forum, name='forum'),
     path('group/fetch_more_posts/', views.fetch_more_posts, name='fetch_more_posts'),
     path('group/create_forum_answer/<int:question_id>/', views.create_forum_answer, name='create_forum_answer'),
+    path('forum_answer/modify/<int:answer_id>/', views.forum_answer_modify, name='forum_answer_modify'),
+
+    path('group/forum_question_vote/<int:question_id>/', views.forum_question_vote, name='forum_question_vote'),
+    path('forum_answer/delete/<int:answer_id>/', views.forum_answer_delete, name='forum_answer_delete'),
+
 
 
     # 3. board
