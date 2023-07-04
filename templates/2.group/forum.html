@@ -69,8 +69,8 @@
     
           <div class="question-header">
     
-            <div class="profile-img" >
-              <img alt="Example Image" style="width: 100%; height: 100%; border-radius: 50%;">
+            <div class="user-profile" >
+              <img src="프로필_이미지_경로" alt="프로필_이미지_설명">
             </div>
             <h3 class="question-subject">{{ question.subject }}</h3>
             <div class="question-footer">
@@ -82,47 +82,93 @@
           </div>
     
           <div class="question-content">
-            <p>{{ question.content }}</p>
-          </div>
+            <a href="javascript:void(0)" data-uri="{% url 'pybo:forum_question_vote' question.id %}" 
+            class="recommend btn btn-sm btn-outline-secondary">
+              추천
+              <span class="badge rounded-pill bg-success">{{question.voter.count}}</span>
+             </a>
+    
+            <p style="width: 30%; height: 200px;">{{ question.content }}</p>
+            <div class="comment-div" style="width: auto;">
+    
+            <ul>
+              {% for answer in question.answers %}
+              <div class="user-profile">
+    
+                <img src="프로필_이미지_경로" alt="프로필_이미지_설명">
+                <h3 style="font-size: 10px; font-weight: bold; float: right; margin-left: 20px;">{{ answer.author }}
+                  <span style="margin-left: 500px;">{{ answer.create_date }}</span>
+                </h3>
+                <li style="margin-left: 10%;">{{ answer.content }}</li>
+    
+                <div class="my-3">
+               
+                  {% if request.user == answer.author %}
+                  <a href="{% url 'pybo:forum_answer_modify' answer.id  %}" 
+                     class="btn btn-sm btn-outline-secondary">수정</a>
+                     <button class="edit-button" data-comment-id="{{ comment.id }}">수정</button>
+    
+    
+                     <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary "
+                     data-uri="{% url 'pybo:forum_answer_delete' answer.id  %}">삭제</a>
+                   
+                  {% endif %}
+                </div>
+    
+                <hr>
     
     
     
+              </div>
     
-          <!-- <div id="answer-form">
-          <form method="post">
-            {% csrf_token %}
-            <textarea name="content" required></textarea>
-            <button type="submit">댓글 작성</button>
-          </form>
-          </div> -->
+              {% endfor %}
+            </ul>
+            </div>
     
-          <!-- <form action="{% url 'pybo:expert_answer_create' question.id %}" method="post"> -->
+          </div> 
+
+
+
+
+
+
+          
     
-         <!-- 답변 등록 -->
-         <form method="post" id="answer-form">
-          {% csrf_token %}
-           <!-- 오류표시 Start -->
-           {% if form.errors %}
-           <div class="alert alert-danger" role="alert">
-               {% for field in form %}
-               {% if field.errors %}
     
-               <div>
-                   <strong>{{ field.label }}</strong>
-                   {{ field.errors }}
-               </div>
-               {% endif %}
-               {% endfor %}
-           </div>
-           {% endif %}
-           <!-- 오류표시 End -->
-          <div class="mb-3">
-              <label for="content">답변내용</label>
-              <textarea {% if not user.is_authenticated %}disabled{% endif %}
-                name="content" id="content" class="form-control" rows="10" style="width: 100%; height: 30px;"></textarea>
-          </div>
-          <input type="submit" value="답변등록" class="btn btn-primary" style="float: right;">
-        </form>
+  
+          <!-- 답변 등록 -->
+      <form action="{% url 'pybo:create_forum_answer' question.id %}" method="post" class="my-3">
+        {% csrf_token %}
+         <!-- 오류표시 Start -->
+         {% if form.errors %}
+         <div class="alert alert-danger" role="alert">
+             {% for field in form %}
+             {% if field.errors %}
+             <div>
+                 <strong>{{ field.label }}</strong>
+                 {{ field.errors }}
+             </div>
+             {% endif %}
+             {% endfor %}
+         </div>
+         {% endif %}
+         <!-- 오류표시 End -->
+        <div class="mb-3">
+            <label for="content" class="form-label">comment {{question.answers.count}}</label>
+
+            <textarea {% if not user.is_authenticated %}disabled{% endif %}
+              name="content" id="content" class="form-control" rows="10" style="height: 40px; width: 90%; display: inline-block;">
+            </textarea>
+            <input type="submit" value="답변등록" class="btn btn-primary " style="float: right; background-color: #4caf50; border: none;">
+
+            <div class="answer">
+              <p>{{ answer.content }}</p>
+              <span class="likes-count">{{ answer.likes }}</span>
+           
+            </div>
+
+        </div>
+      </form>
     
     
     
@@ -397,6 +443,42 @@ $('#answer-form').on('submit', function(event) {
   max-width: 50px;
   background: gray;
 
+}
+.comment-div {
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.comment-div ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment-div ul li {
+  padding: 5px 0;
+}
+
+.comment-div ul li:before {
+  content: "\2022";
+  color: #dbdbdb;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+.user-profile {
+  border-bottom: 10px;
+  text-align: left;
+  display: inline-block;
+}
+
+.user-profile img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 

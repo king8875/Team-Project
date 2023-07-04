@@ -70,7 +70,8 @@ class ForumAnswerForm(forms.ModelForm):
         labels = {
             'content': '뒙변내용',
         }
-        from django import forms
+
+        
 from .models import PatientList
 
 class PatientForm(forms.ModelForm):
