@@ -181,3 +181,39 @@ class ForumAnswer(models.Model):
 
 
 # Create your models here.
+
+
+
+class animal_ranking_Category(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    has_answer = models.BooleanField(default=True)  # 답변가능 여부
+
+    def __str__(self):
+        return self.name
+
+    def __str__(self):
+        return self.description
+
+    def get_absolute_url(self):
+        return reverse('pybo:index', args=[self.name])
+
+
+class Pet2(models.Model):
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True)
+
+
+class animal_ranking(models.Model):
+    modify_date = models.DateTimeField(null=True, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='animal_ranking_author')
+    subject = models.CharField(max_length=200)
+    content = models.TextField()
+    create_date = models.DateTimeField()
+    voter = models.ManyToManyField(User, related_name='voter_animal_ranking')  # 추천인 추가
+    category = models.ForeignKey(animal_ranking_Category, on_delete=models.CASCADE, related_name='animal_ranking_category')
+    pet = models.ForeignKey(Pet2, on_delete=models.CASCADE, null=True, related_name='pet2')
+    thumbnail = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True,blank=True) 
+    voter = models.ManyToManyField(User, related_name='voter_animal_question')
+    
+    def __str__(self):
+        return self.subject      ###models.py####

@@ -97,9 +97,9 @@
 </div>
 
 <div class="container-fluid" >
-    <div class="row">
-        <div class="col-sm-12 col-md-3 col-lg-2 d-md-block sidebar collapse">
-            <nav id="sidebarMenu"  style="margin-top: 2%; margin-left: 2%; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px;">
+    <div class="row" >
+        <div class="col-sm-12 col-md-3 col-lg-2 d-md-block sidebar collapse" style="margin-top: 0.5%;">
+            <nav id="sidebarMenu"  style="margin-top: 2%; margin-left: 2%; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; height: 100%;">
                 <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -124,12 +124,12 @@
                       </a>
                   </li>
 
-                  <li class="nav-item ">
-                    <a class="nav-link" href="{% url 'pybo:animal_contest' %}">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pybo:animalcontest' 'animal_ranking' %}">
                       <i class="bi bi-file-music"></i>
-                        Dang 콘테스트
+                      Dang 콘테스트
                     </a>
-                </li>
+                  </li>
         
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'pybo:calendar' %}">

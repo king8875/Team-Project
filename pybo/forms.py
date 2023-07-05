@@ -97,3 +97,25 @@ class ProfileImgForm(forms.ModelForm):
     class Meta:
         model = Profile_img
         fields = ('Profile_img',)
+
+
+from .models import animal_ranking
+
+class animalForm(forms.ModelForm):
+    class Meta:
+        model = animal_ranking
+        connection.close()
+        fields = ['subject', 'content','thumbnail']
+        widgets = {
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
+        }
+        labels = {
+            'subject': '줴목',
+            'content': '내용',
+            'thumbnail': '썸네일',
+        } 
+        enctype = 'multipart/form-data'
+    def __init__(self, *args, **kwargs):
+        super(animalForm, self).__init__(*args, **kwargs)
+        self.fields['thumbnail'].required = False
