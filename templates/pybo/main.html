@@ -2,6 +2,10 @@
 {% load pybo_filter %}
 {% block content %}
 {% load static %}
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+</head>
+
 <div class="col-md-9 col-lg-7" >
 
     
@@ -59,9 +63,9 @@
       
     <div class="card-body">
         <h5 class="card-title" style="text-align: center;">{{ user.username }}</h5>
-        <p class="card-text" style="text-align: center; font-weight: lighter;">알렉산더</p>
+        
 
-        <div class="profile-card-menu">
+        <div class="profile-card-menu" style="margin-top: 15%;">
             <img src="C:\Users\PC\Desktop\team-project\Team-Project\static\icon\profile.png" alt="" style="width: 20%;">
             <button type="button" style="border: none; background-color: #FFFFFF; margin-left: 30px;">
                 <a href="{% url 'pybo:user_profile' %}">
@@ -100,7 +104,7 @@
                         <input style="width: 60%; flex-direction: column; align-items:flex-start; background: #FFFFFF; border-radius: 5px; border: 2px solid #858585" />
                     </div>
 
-                    <div style="display: inline-block; float: right;">
+                    <div style="display: inline-block; ">
                         <button type="button" style="background: #FFFFFF; border-color: #5429ff; color: #5429ff; border-radius: 5px;"> Cancel </button>
                         <button type="button" style="background: #5429ff; color: #ffffff; border-radius: 5px;"> Save </button>
                     </div>
@@ -115,74 +119,60 @@
   <!-- 프로필 카드 컴포넌트 끝 -->
 
   <!-- 금주의 댕콘테스트 컴포넌트  -->
-  <div class="weekly-dogs" style="width: calc(100% - 15rem - 10px); height: calc(2/3 * 300px); display: flex; gap: 10px;">
-    <div class="card shadow-sm border-light" style="flex: 0 0 calc(33.333% - 10px); max-width: calc(33.333% - 10px); border-radius: 10px;">
-      <div class="row g-0">
-        <div class="col-md-6">
-          <div class="card-body">
-            <h1 class="card-title">1st</h1>
-            <p class="card-text" style="margin-top: 40%;">작성자 이름</p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-heart" viewBox="0 0 16 16" style="margin-top: 10%;">
-              <path fill-rule="evenodd" d="M2.965 12.695a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2Zm-.8 3.108.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125ZM8 5.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
-            </svg>
+  <div class="weekly-dogs" style="width: calc(100% - 15rem - 10px); height: calc(2/3 * 300px); display: flex; gap: 17px;">
+    <div style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; width: 50%; ">
+      <div class="d-flex align-items-stretch shadow-box" style="display: flex; height: 100%;">
+        <div class="box-content" style="width: 50%;">
+          <div class="left-content">
+            <h3>1st</h3>
+            <p>Here is some text for 1st.</p>
           </div>
         </div>
-        <div class="col-md-6">
-          <img src="{% static 'img/puppy_1.jpg' %}" class="card-img-top" alt="thumbnail" style="height: 100%; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+        <div class="box-content" style="width: 50%;">
+          <div class="right-content" style="background-image: url('../../static/img/puppy_1.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+          </div>
         </div>
-        
       </div>
     </div>
-    
-    <div class="card shadow-sm border-light" style="flex: 0 0 calc(33.333% - 10px); max-width: calc(33.333% - 10px);">
-      <div class="row g-0">
-        <div class="col-md-6">
-          <div class="card-body">
-            <h2 class="card-title">2nd</h2>
-            <p class="card-text" style="margin-top: 40%;">작성자 이름</p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-heart" viewBox="0 0 16 16" style="margin-top: 25%;">
-              <path fill-rule="evenodd" d="M2.965 12.695a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2Zm-.8 3.108.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125ZM8 5.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
-            </svg>
+    <div style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; width: 50%; ">
+      <div class="d-flex align-items-stretch shadow-box" style="display: flex; height: 100%;">
+        <div class="box-content" style="width: 50%;">
+          <div class="left-content">
+            <h3>2nd</h3>
+            <p>Here is some text for 1st.</p>
           </div>
         </div>
-        <div class="col-md-6">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="200px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+        <div class="box-content" style="width: 50%;">
+          <div class="right-content" style="background-image: url('../../static/img/puppy_1.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+          </div>
         </div>
-        
       </div>
     </div>
-<<<<<<< HEAD
-    <div class="card shadow-sm border-light" style="flex: 0 0 calc(33.333% - 10px); max-width: calc(33.333% - 10px);">
-      <div class="row g-0">
-        <div class="col-md-6">
-          <div class="card-body">
-            <h1 class="card-title">3th</h1>
-            <p class="card-text" style="margin-top: 40%;">작성자 이름</p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-heart" viewBox="0 0 16 16" style="margin-top: 10%;">
-              <path fill-rule="evenodd" d="M2.965 12.695a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2Zm-.8 3.108.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125ZM8 5.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
-            </svg>
-=======
-    <div class="card shadow-sm " style="float: right;">
-      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-      <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-          <small class="text-body-secondary">9 mins</small>
->>>>>>> 8a42cd73d3fd2562986f508f059bfe2d992f6237
+    <div style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; width: 50%; ">
+      <div class="d-flex align-items-stretch shadow-box" style="display: flex; height: 100%;">
+        <div class="box-content" style="width: 50%;">
+          <div class="left-content">
+            <h3>3th</h3>
+            <p>Here is some text for 1st.</p>
           </div>
         </div>
-        <div class="col-md-6">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="200px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+        <div class="box-content" style="width: 50%;">
+          <div class="right-content" style="background-image: url('../../static/img/puppy_1.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+          </div>
         </div>
-        
       </div>
     </div>
   </div>
+  
 </div>
 <!-- 금주의 댕콘테스트 컴포넌트 끝 -->
+
+<div>
+  <div class="col-md-12" style="margin-top: 2%;">
+    <div id="calendar" style="height: 80%;">
+    </div>
+   </div>
+</div>
 
 
   
@@ -223,6 +213,105 @@
   {% endif %}
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+
+<script>
+  $(document).ready(function () {
+    var calendar = $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        events: '/pybo/all_events',
+        selectable: true,
+        selectHelper: true,
+        editable: true,
+        eventLimit: true,
+        select: function (start, end, allDay) {
+            var title = prompt("Enter Event Title");
+            if (title) {
+                var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+                var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+                $.ajax({
+                    type: "GET",
+                    url: '/pybo/add_event',
+                    data: {'title': title, 'start': start, 'end': end},
+                    dataType: "json",
+                    success: function (data) {
+                        calendar.fullCalendar('refetchEvents');
+                        alert("Added Successfully");
+                    },
+                    error: function (data) {
+                        alert('There is a problem1!!!');
+                    }
+                });
+            }
+        },
+        eventResize: function (event) {
+            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+            var title = event.title;
+            var id = event.id;
+            $.ajax({
+                type: "GET",
+                url: '/pybo/update',
+                data: {'title': title, 'start': start, 'end': end, 'id': id},
+                dataType: "json",
+                success: function (data) {
+                    calendar.fullCalendar('refetchEvents');
+                    alert('Event Update');
+                },
+                error: function (data) {
+                    alert('There is a problem2!!!');
+                }
+            });
+        },
+
+        eventDrop: function (event) {
+            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+            var title = event.title;
+            var id = event.id;
+            $.ajax({
+                type: "GET",
+                url: '/pybo/update',
+                data: {'title': title, 'start': start, 'end': end, 'id': id},
+                dataType: "json",
+                success: function (data) {
+                    calendar.fullCalendar('refetchEvents');
+                    alert('Event Update');
+                },
+                error: function (data) {
+                    alert('There is a problem3!!!');
+                }
+            });
+        },
+
+        eventClick: function (event) {
+            if (confirm("Are you sure you want to remove it?")) {
+                var id = event.id;
+                $.ajax({
+                    type: "GET",
+                    url: '/pybo/remove',
+                    data: {'id': id},
+                    dataType: "json",
+                    success: function (data) {
+                        calendar.fullCalendar('refetchEvents');
+                        alert('Event Removed');
+                    },
+                    error: function (data) {
+                        alert('There is a problem4!!!');
+                    }
+                });
+            }
+        },
+
+    });
+});
+
+</script>
 
 <script>
 function openModal() {

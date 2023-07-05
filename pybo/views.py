@@ -794,17 +794,17 @@ def dangbti(request):
     
     return render(request, 'pybo/mbti.html')
 
-def animalContest(request):
+# def animalContest(request):
     
-    return render(request, 'pybo/animal_contest.html')
+#     return render(request, 'pybo/animal_contest.html')
 
-def animalRanking(request):
+# def animalRanking(request):
     
-    return render(request, 'pybo/animal_ranking.html')
+#     return render(request, 'pybo/animal_ranking.html')
 
-def animalWrite(request):
+# def animalWrite(request):
     
-    return render(request, 'pybo/animal_write.html')
+#     return render(request, 'pybo/animal_write.html')
 
 
 
@@ -1123,3 +1123,122 @@ def upload_profile_img(request):
     else:
         form = ProfileImgForm()
     return render(request, 'pybo/user_profile.html', {'form': form})
+
+
+
+
+from .models import animal_ranking
+from .models import animal_ranking_Category
+from .forms import animalForm
+
+
+def animalContest(request,category_name='animal_ranking'):
+    
+    '''
+    pybo 목록 출력
+    '''
+    # 입력 파라미터
+    page = request.GET.get('page', '1')  # 페이지
+    kw = request.GET.get('kw', '')  # 검색어
+    so = request.GET.get('so', 'recent')  # 정렬기준
+
+    animal = animal_ranking.objects.all()
+    category_list = animal_ranking_Category.objects.all()
+    #print(category_list)
+    category = get_object_or_404(animal_ranking_Category, name=category_name)
+    question_list = animal_ranking.objects.filter(category=category)
+    ###expert_list변경
+    # 정렬
+    if so == 'recommend':
+        # aggretation, annotation에는 relationship에 대한 역방향 참조도 가능 (ex. Count('voter'))
+        question_list = question_list.annotate(num_voter=Count('voter')).order_by('-num_voter', '-create_date')
+    elif so == 'popular':
+        question_list = question_list.annotate(num_answer=Count('answer')).order_by('-num_answer', '-create_date')
+    else:
+        question_list = question_list.order_by('-create_date')
+
+    # 검색
+    if kw:
+        question_list = question_list.filter(
+            Q(subject__icontains=kw) |  # 질문 제목검색
+            Q(content__icontains=kw) |  # 질문 내용검색
+            Q(answer__content__icontains=kw) |  # 답변 내용검색
+            Q(author__username__icontains=kw) |  # 질문 작성자검색
+            Q(answer__author__username__icontains=kw)  # 답변 작성자검색
+        ).distinct()
+
+    # 페이징처리
+    paginator = Paginator(question_list, 9)  # 페이지당 10개식 보여주기
+    page_obj = paginator.get_page(page)
+    max_index = len(paginator.page_range)
+
+    context = {'question_list': page_obj, 'max_index': max_index, 'page': page, 'kw': kw, 'so': so,
+               'category_list': category_list, 'category': category, 'animal':animal}
+    return render(request, 'pybo/animal_contest.html', context)
+
+
+@login_required(login_url='common:login')
+def animalWrite(request,category_name='animal_ranking'):
+    """
+    pybo 질문등록
+    """
+    category = animal_ranking_Category.objects.get(name=category_name)
+    print(category)
+    aniaml = animal_ranking.objects.all
+    form = animalForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        """post = Post()
+        photo = Photo()
+        post.title = request.POST['title']
+        post.content = request.POST['content']
+        post.pub_date = timezone.datetime.now()
+        post.user = request.user
+        photo.post = post
+        photo.image = request.POST['imgs']
+        
+        post.save()
+        photo.save()
+        
+        
+       
+        for img in request.FILES.getlist('imgs'):
+            print('hi in img')
+            # Photo 객체를 하나 생성한다.
+            photo = Photo()
+            # 외래키로 현재 생성한 Post의 기본키를 참조한다.
+            photo.post = post
+            # imgs로부터 가져온 이미지 파일 하나를 저장한다.
+            photo.image = img
+            # 데이터베이스에 저장
+            print(type(photo))
+            photo.save()"""
+        
+        form = animalForm(request.POST, request.FILES)
+        if form.is_valid():
+            aniaml = form.save(commit=False)
+            aniaml.author = request.user  # author 속성에 로그인 계정 저장
+            aniaml.create_date = timezone.now()
+            aniaml.category = category  
+           
+            aniaml.save()
+           
+            #return redirect(category)
+            #return redirect('pybo:expert_detail')
+            #expert = get_object_or_404(Question, pk=expert_id)
+            context = {'aniaml': aniaml, 'form': form}
+            print("123123")
+            return redirect('pybo:animalcontest', category_name='animal_ranking')
+        else:
+            print(form.errors)
+    else:  # request.method == 'GET'
+        form = animalForm()
+        print("gdgd")
+    context = {'form': form, 'category': category}
+    return render(request, 'pybo/question_form.html', context)
+
+@login_required(login_url='common:login')
+def animal_vote(request, question_id):
+    question = get_object_or_404(animal_ranking, pk=question_id)
+    
+    question.voter.add(request.user)
+    return redirect('pybo:animalcontest', category_name='animal_ranking')

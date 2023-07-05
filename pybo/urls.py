@@ -47,12 +47,17 @@ urlpatterns = [
     path('expert/craete/<str:category_name>/', views.expert_create, name='expert_create'),
     path('create/<int:question_id>', views.pet_create, name='pet_create'),
     path('dangbti/', views.dangbti, name='dangbti'),
-    path('animal/contest/', views.animalContest, name='animal_contest'),
-    path('animal/ranking/', views.animalRanking, name='animal_ranking'),
-    path('animal/write/', views.animalWrite, name='animal_write'),
+    #path('animal/contest/', views.animalContest, name='animal_contest'),
+    #path('animal/ranking/', views.animalRanking, name='animal_ranking'),
+    #path('animal/write/', views.animalWrite, name='animal_write'),
     path('registration/randing/', views.randing_page, name='randing_page'),
     path('tanalyze/', views.Tanalyze, name='Tanalyze'),
-    
+
+    path('animal/contest/<str:category_name>/', views.animalContest, name='animalcontest'),
+    #path('animal/ranking/', views.animalRanking, name='animal_ranking'),
+    path('animal/write/<str:category_name>', views.animalWrite, name='animal_write'),
+    path('animal/vote/<int:question_id>/', views.animal_vote, name='animal_vote'),
+
     
 
     # 1. Channel-Community

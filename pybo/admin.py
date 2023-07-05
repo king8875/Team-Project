@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Post, Photo, Expert, Pet, Profile_img
+from .models import Question, Post, Photo, Expert, Pet, Profile_img, animal_ranking_Category
 
 class QuestionAdmin(admin.ModelAdmin):
     search_fields = ['subject']
@@ -16,7 +16,7 @@ admin.site.register(Expert)
 
 admin.site.register(Profile_img)
 
-
+admin.site.register(animal_ranking_Category)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Post, PostAdmin)
 # Register your models here.
