@@ -75,6 +75,8 @@ urlpatterns = [
 
     path('group/forum_question_vote/<int:question_id>/', views.forum_question_vote, name='forum_question_vote'),
     path('forum_answer/delete/<int:answer_id>/', views.forum_answer_delete, name='forum_answer_delete'),
+    path('forum_question_delete/<int:question_id>/', views.forum_question_delete, name='forum_question_delete'),
+
 
 
 

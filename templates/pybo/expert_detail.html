@@ -17,6 +17,8 @@
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">{{ question.content }}</div>
+            <img src="{{ question.thumbnail.url }}" alt="{{question.subject}}"  class="img-fluid" style="width: 20%;   object-fit: cover;  user-select: auto;">
+
             <div class="d-flex justify-content-end">
                 {% if question.modify_date %}
             <div class="badge bg-light text-dark p-2 text-start mx-3">
@@ -44,14 +46,14 @@
 
     <!-- 이미지 -->
     {% if photo %}
-        {{question.id}}
         {{photo.image.url}}
         <img src = "{{ photo.image.url}}" alt="" height="600">
+        
         <br>
     {% endif %}
     {{photo.image}}
     {% for photo in post.photo_set.all%}
-    <img src="{{photo.image}}" width="50"><br>
+    <!-- <img src="{{photo.image}}" width="50"><br> -->
     {% endfor %}
     <h5 class="border-bottom my-3 py-2">{{question.expert_answers.count}}개의 답변이 있습니다.</h5>
     {% for answer in question.expert_answers.all %}

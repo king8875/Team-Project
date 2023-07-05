@@ -37,9 +37,9 @@
     
     
     <div class="col-12 col-xl-8 infinite-container">
-      <h1>Forum</h1>
+      <h1 style="padding: 40px;">Forum</h1>
     
-      <div class="forum-post-input">
+      <div class="forum-post-input" style="margin-bottom: 10%;">
     
     
         <form id="forum-form">
@@ -59,6 +59,7 @@
         <div id="forum-posts"></div>
     
       </div>
+
     
     
     
@@ -70,7 +71,7 @@
           <div class="question-header">
     
             <div class="user-profile" >
-              <img src="프로필_이미지_경로" alt="프로필_이미지_설명">
+              <img src="프로필_이미지_경로" alt="">
             </div>
             <h3 class="question-subject">{{ question.subject }}</h3>
             <div class="question-footer">
@@ -89,13 +90,26 @@
              </a>
     
             <p style="width: 30%; height: 200px;">{{ question.content }}</p>
+
+
+            <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+            data-uri="{% url 'pybo:forum_question_delete' question.id  %}">question삭제</a>
+
+            <a href="javascript:void(0)" data-uri="{% url 'pybo:forum_question_vote' question.id  %}"
+               class="recommend btn btn-sm btn-outline-secondary"> 추천
+                <span class="badge rounded-pill bg-success">{{question.voter.count}}</span>
+            </a>
+
+
             <div class="comment-div" style="width: auto;">
+
+
     
             <ul>
               {% for answer in question.answers %}
               <div class="user-profile">
     
-                <img src="프로필_이미지_경로" alt="프로필_이미지_설명">
+                <img src="프로필_이미지_경로" alt="">
                 <h3 style="font-size: 10px; font-weight: bold; float: right; margin-left: 20px;">{{ answer.author }}
                   <span style="margin-left: 500px;">{{ answer.create_date }}</span>
                 </h3>
@@ -106,18 +120,23 @@
                   {% if request.user == answer.author %}
                   <a href="{% url 'pybo:forum_answer_modify' answer.id  %}" 
                      class="btn btn-sm btn-outline-secondary">수정</a>
-                     <button class="edit-button" data-comment-id="{{ comment.id }}">수정</button>
+                     <button  id="chatBot">버튼</button>
+
+                     
+                  <div id="my_modal">
+                    <iframe src="{% url 'pybo:forum_answer_modify' answer.id  %}" id="chat_iframe">대체 내용</iframe>  
+                    <a class="modal_close_btn">닫기</a>
+                  </div>
+
     
     
-                     <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary "
-                     data-uri="{% url 'pybo:forum_answer_delete' answer.id  %}">삭제</a>
+                     <!-- <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary "
+                     data-uri="{% url 'pybo:forum_answer_delete' answer.id  %}">삭제</a> -->
                    
                   {% endif %}
                 </div>
     
                 <hr>
-    
-    
     
               </div>
     
@@ -126,6 +145,8 @@
             </div>
     
           </div> 
+
+        
 
 
 
@@ -155,11 +176,12 @@
          <!-- 오류표시 End -->
         <div class="mb-3">
             <label for="content" class="form-label">comment {{question.answers.count}}</label>
+            <hr>
 
             <textarea {% if not user.is_authenticated %}disabled{% endif %}
-              name="content" id="content" class="form-control" rows="10" style="height: 40px; width: 90%; display: inline-block;">
+              name="content" id="content" class="form-control"  style="height: 40px; width: 90%; display: inline-block;">
             </textarea>
-            <input type="submit" value="답변등록" class="btn btn-primary " style="float: right; background-color: #4caf50; border: none;">
+            <input type="submit" value="답변등록" class="btn btn-primary " style="float: right; background-color: #5429FF; border: none; padding: 10px;">
 
             <div class="answer">
               <p>{{ answer.content }}</p>
@@ -196,9 +218,13 @@ form.addEventListener('submit', function(event) {
   // 제목과 내용을 가져오기
   const titleInput = document.getElementById('title-input');
   const contentInput = document.getElementById('content-input');
+  const imgInput = document.getElementById('image-input');
+
 
   const subject = titleInput.value;
   const content = contentInput.value;
+  const forum_img = imgInput.value;
+
 
   // 제목과 내용이 비어있는지 확인
   if (subject === '' || content === '') {
@@ -209,25 +235,18 @@ form.addEventListener('submit', function(event) {
 
   // Ajax 요청 보내기 게시물 등록
   $.ajax({
-    url: 'http://127.0.0.1:8000/pybo/group/create_forum_question/',  // Django URL 설정에 맞게 수정해야 함
+    url: "{% url 'pybo:create_forum_question' %}",  // Django URL 설정에 맞게 수정해야 함
     method: "POST",
     data: {
       subject: subject,
       content: content,
+      forum_img: forum_img,
       
     },
     success: function(response) {
       // 성공적으로 저장되면 새로운 게시물 요소 생성
-      const postElement = document.createElement('div');
-      postElement.classList.add('post');
-      postElement.innerHTML = `
-        <h3>${subject}</h3>
-        <p>${content}</p>
-        <p>작성자: ${response.author}</p>
-        <p>작성일: ${response.create_date}</p>
-      `;
       alert('게시물을 작성했습니다');
-
+      window.location.reload();
       console.log("success");
 
   
@@ -251,9 +270,10 @@ $('#answer-form').on('submit', function(event) {
 
   const form = $(this);
   const formData = form.serialize(); // 폼 데이터 가져오기
+  // http://127.0.0.1:8000/pybo/group/create_forum_answer/
 
   $.ajax({
-    url: 'http://127.0.0.1:8000/pybo/group/create_forum_answer/',  // Django URL 설정에 맞게 수정해야 함
+    url: "/pybo/create_forum_answer/",  // Django URL 설정에 맞게 수정해야 함
     method: 'POST',
     data: formData,
     success: function(response) {
@@ -280,36 +300,35 @@ $('#answer-form').on('submit', function(event) {
 
 
 
-// $(window).scroll(function() {
-//   if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-//     // 페이지 하단에 도달 시 Ajax 요청 보내기
-//     $.ajax({
-//       url: 'http://127.0.0.1:8000/pybo/group/fetch_more_posts/',  // 수정된 URL
-//       method: "GET",
-//       data: {
-//         last_question_id: lastQuestionId  // 마지막으로 로드한 질문의 ID를 전달
-//       },
-//       success: function(response) {
 
-//         console.log("ewfewfwefwe")
-//         // 성공적으로 데이터를 가져왔을 때 처리 로직
-//         // 가져온 데이터를 기반으로 게시물을 동적으로 추가
-//       },
-//       error: function(error) {
-//         alert('게시물을 더 가져오지 못했습니다');
-//       }
-//     });
-//   }
-// });
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+
+const recommend_elements = document.getElementsByClassName("recommend");
+Array.from(recommend_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 추천하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
 
 
- 
 
 </script>
 
 
 
 <style>
+button{
+  background-color: #5429FF;
+}
 
 .forum-input {
   margin: 20px auto;
@@ -356,11 +375,10 @@ $('#answer-form').on('submit', function(event) {
   display: block;
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #4caf50;
+  background-color: #5429FF;
   color: #fff;
   border: none;
   border-radius: 3px;
-  cursor: pointer;
   margin-left: 80%;
   
 }
@@ -380,11 +398,10 @@ $('#answer-form').on('submit', function(event) {
 }
 
 .question-header {
-  padding: 10px;
+  padding: 15px;
   background-color: #ffffff;
   border-bottom: 1px solid #e0e0e0;
   display: flex;
-  flex-direction: row; /* 기본값 */
   
 }
 
@@ -395,13 +412,14 @@ $('#answer-form').on('submit', function(event) {
   color: #333;
   margin: 0;
   block-size: fit-content;
+  padding: 10px;
 }
 
 
 .question-date {
   font-size: 10px;
   color: #777;
-  margin: 0;
+  margin: 0;  
 
 }
 
@@ -462,7 +480,6 @@ $('#answer-form').on('submit', function(event) {
 }
 
 .comment-div ul li:before {
-  content: "\2022";
   color: #dbdbdb;
   display: inline-block;
   width: 1em;

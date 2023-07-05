@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <!-- 답변 수정-->
-<div class="container my-3">
+<div class="col-md-9 col-lg-7" >
     <form method="post">
         {% csrf_token %}
         {% include "form_errors.html" %}
@@ -13,4 +13,6 @@
         <button type="submit" class="btn btn-primary">저장하기</button>
     </form>
 </div>
+
+
 {% endblock %}

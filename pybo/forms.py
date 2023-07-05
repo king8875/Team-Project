@@ -62,6 +62,12 @@ class ForumQuestionForm(forms.ModelForm):
     class Meta:
         model = ForumQuestion
         fields = ['subject', 'content', 'category','forumimg']
+        labels = {
+            'subject': '줴목',
+            'content': '내용',
+            'forumimg': '썸네일',
+        } 
+        
 
 class ForumAnswerForm(forms.ModelForm):
     class Meta:

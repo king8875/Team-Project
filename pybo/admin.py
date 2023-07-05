@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Post, Photo, Expert, Pet, Profile_img
+from .models import Question, Post, Photo, Expert, Pet, Profile_img, ForumQuestion
 
 class QuestionAdmin(admin.ModelAdmin):
     search_fields = ['subject']
@@ -13,6 +13,8 @@ class PostAdmin(admin.ModelAdmin):
 
 admin.site.register(Pet)
 admin.site.register(Expert)
+admin.site.register(ForumQuestion)
+
 
 admin.site.register(Profile_img)
 
