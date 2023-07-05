@@ -1,9 +1,7 @@
 from django.contrib import admin
-<<<<<<< HEAD
-from .models import Question, Post, Photo, Expert, Pet, Profile_img, animal_ranking_Category
-=======
-from .models import Question, Post, Photo, Expert, Pet, Profile_img, ForumQuestion
->>>>>>> 1d4887f7b7de7b9ed9535a0b1ac5c928d510ab97
+
+from .models import Question, Post, Photo, Expert, Pet, Profile_img, animal_ranking_Category, ForumQuestion
+
 
 class QuestionAdmin(admin.ModelAdmin):
     search_fields = ['subject']
