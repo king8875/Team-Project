@@ -653,13 +653,16 @@ def forumGroup(request):
 
     # questions = ForumQuestion.objects.all()
 
-    questions = ForumQuestion.objects.all().order_by('-create_date')  # 최신순으로 정렬
+    questions = ForumQuestion.objects.all().order_by('-create_date')[:10]  # 최신순으로 정렬
     photo = Photo.objects.all()
+    votor = ForumQuestion.objects.all().values_list('voter', flat=True)
+
     for question in questions:
         
         answers = ForumAnswer.objects.filter(question=question)
         question.answers = answers
-    context = {'questions': questions, 'photo' : photo}
+    
+    context = {'questions': questions, 'photo' : photo, 'votor' : votor}
     return render(request, '2.group/forum.html', context)
 
 
@@ -968,21 +971,34 @@ def create_forum_question(request):
     if request.method == "POST":
         subject = request.POST.get('subject')
         content = request.POST.get('content')
-        form = ForumQuestionForm(request.POST, request.FILES)
+        # forum_img = request.FILES.get('forum_img')  # 이미지 파일 가져오기
+
+        forum_img = ForumQuestionForm(request.POST, request.FILES)
         # ForumQuestion 모델에 데이터 저장
         forum_question = ForumQuestion(
             author=request.user,
             subject=subject, 
             content=content,
+            # forum_img=forum_img,
             modify_date=None,
             create_date=timezone.now(),
             category=None,
             )
         forum_question.save()
         context = {'forum_question': forum_question}
-
-
+        return redirect('pybo:forumGroup')
     return render(request, '2.group/forum.html', context)
+
+
+
+@login_required(login_url='common:login')
+def forum_question_delete(request, question_id):
+    question = get_object_or_404(ForumQuestion, pk=question_id)
+    if request.user != question.author:
+        messages.error(request, '삭제권한이 없습니다')
+        return redirect('pybo:forumGroup', question_id=question.id)
+    question.delete()
+    return redirect('pybo:forumGroup')
 
 
 
@@ -1021,13 +1037,19 @@ def create_forum_answer(request, question_id):
 
 @login_required(login_url='common:login')
 def forum_question_vote(request, question_id):
-    question = get_object_or_404(ForumQuestion, qk=question_id)
+    question = get_object_or_404(ForumQuestion, pk=question_id)
     if request.user == question.author:
         messages.error(request, 'error')
-        return redirect('pybo:forumGroup')
     else:
         question.voter.add(request.user)
-    return render('2.group/forum.html')
+    return redirect('pybo:forumGroup', question_id=question.id)
+
+
+
+
+
+
+
 
 @login_required(login_url='common:login')
 def forum_answer_modify(request, answer_id):
@@ -1058,14 +1080,14 @@ def forum_answer_delete(request, answer_id):
         answer.delete()
     return redirect('pybo:forumGroup', question_id=answer.question.id)
 
-@login_required(login_url='common:login')
-def answer_delete(request, answer_id):
-    answer = get_object_or_404(Answer, pk=answer_id)
-    if request.user != answer.author:
-        messages.error(request, '삭제권한이 없습니다')
-    else:
-        answer.delete()
-    return redirect('pybo:detail', question_id=answer.question.id)
+# @login_required(login_url='common:login')
+# def answer_delete(request, answer_id):
+#     answer = get_object_or_404(Answer, pk=answer_id)
+#     if request.user != answer.author:
+#         messages.error(request, '삭제권한이 없습니다')
+#     else:
+#         answer.delete()
+#     return redirect('pybo:detail', question_id=answer.question.id)
     
 
 
