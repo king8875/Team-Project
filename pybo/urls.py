@@ -50,7 +50,7 @@ urlpatterns = [
     #path('animal/contest/', views.animalContest, name='animal_contest'),
     #path('animal/ranking/', views.animalRanking, name='animal_ranking'),
     #path('animal/write/', views.animalWrite, name='animal_write'),
-    path('registration/randing/', views.randing_page, name='randing_page'),
+    path('registration/landing/', views.landing_page, name='landing_page'),
     path('tanalyze/', views.Tanalyze, name='Tanalyze'),
 
     path('animal/contest/<str:category_name>/', views.animalContest, name='animalcontest'),

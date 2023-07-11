@@ -1,0 +1,217 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Landing_Page</title>
+
+
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="main_container">
+
+
+			<section>
+				<nav class="landing_nav">
+					<p style="width: 45px; height: 45px; display: inline-block;">
+						<img src="{%static 'img/logo_landing.png' %}" alt="Logo" height="30" style="color: white;">
+
+					</p>
+					<ul style="float: right; display: flex; list-style-type: none;">
+						<li>
+							<a class="nav-link" href="{% url 'common:login' %}">
+								<button type="submit" class="btn btn-primary"
+									style="width: 100%; background-color: #5429FF; color: white; border: none; font-size: medium;">
+									Login
+
+								</button>
+							</a>
+
+						</li>
+						<li>
+							<a class="nav-link" href="{% url 'common:signup'  %}">
+								<button type="submit" class="btn btn-primary"
+									style="margin-left: 10%; width: 100%; background-color: #5429FF; color: white; border: none; font-size: medium;">
+									Sign-up
+								</button>
+
+							</a>
+						</li>
+					</ul>
+
+				</nav>
+				<div class="landing_text" style=" margin-top: 50px; font-size: 35px; float: left;">
+					<h1>Animal Community</h1>
+					<p style="font-size: 15px;">This website is a pet diagnosis and community service, <br>and you can
+						get
+						access to many community functions!</p>
+					<a class="nav-link" href="{% url 'common:login' %}">
+
+						<button type="submit" class="landing_btn"
+							style="width: 100%; background-color: white; border: none; border-radius: 10px;">
+							Login
+						</button>
+					</a>
+					<a class="nav-link" href="{% url 'common:signup'  %}">
+
+						<button type="submit" class="landing_btn"
+							style="width: 100%; background-color: white; border: none; border-radius: 10px;">
+							Sign-up
+						</button>
+					</a>
+				</div>
+
+				<div class="cat_img">
+					<img src="{% static 'img/landing.png' %}" style="width: 100%; margin-bottom: auto;">
+				</div>
+			</section>
+
+
+			<section>
+
+				<div class="section1" data-aos="fade-in"  data-aos-duration="4000">
+					<p style="font-size: 50px; font-weight: 700; text-align: left; color: black;">Get a free online
+						diagnosis service <br> with a professional veterinarian
+					</p>
+
+				</div>
+			</section>
+
+			<section>
+				<div>
+					vdsvdssdvsvd
+				</div>
+			</section>
+
+			<section>
+				<div>
+					vdsvdssdvsvd
+				</div>
+			</section>
+
+		</div>
+	</div>
+
+
+	<script>
+
+		window.addEventListener('load', function () {
+			var fadeElems = document.querySelectorAll('.cat_img');
+
+			fadeElems.forEach(function (elem) {
+				elem.classList.add('loaded');
+			});
+		});
+
+		const gra = function (min, max) {
+			return Math.random() * (max - min) + min;
+		}
+		const init = function () {
+			let items = document.querySelectorAll('section');
+			for (let i = 0; i < items.length; i++) {
+				items[i].style.background = randomColor({ luminosity: 'light' });
+			}
+			cssScrollSnapPolyfill()
+		}
+		init();
+
+
+	</script>
+	<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+	<script>
+		AOS.init();
+	</script>
+</body>
+<style>
+	html,
+	body {
+		width: 100%;
+		height: 100%;
+		font-family: sans-serif;
+		scroll-snap-type: mandatory;
+		scroll-snap-points-y: repeat(100vh);
+		scroll-snap-type: y mandatory;
+	}
+
+	body {
+		margin: 0;
+	}
+
+	div {
+		box-sizing: border-box;
+	}
+
+	section {
+		border-bottom: 1px solid white;
+		padding: 1rem;
+		height: 100vh;
+		scroll-snap-align: start;
+		/* text-align: center; */
+		position: relative;
+	}
+
+
+	.landing_nav {
+		width: 100%;
+		height: 50px;
+		padding: 10px;
+		background-color: none;
+		border-radius: 10px;
+		display: inline-block;
+		position: sticky;
+		margin-top: 20px;
+
+	}
+
+	.main_container {
+		max-width: 1200px;
+		margin: auto;
+
+	}
+
+	.container {
+		background-image: linear-gradient(to bottom, #5429FF, #4e61c0);
+		height: 550px;
+		padding: 20px;
+		color: white;
+	}
+
+	.cat_img {
+		height: 50px;
+		opacity: 0;
+		transition: opacity 1s ease-in;
+		/* display: inline-block; */
+		float: right;
+
+
+	}
+
+	.cat_img.loaded {
+		opacity: 1;
+		width: 500px;
+
+	}
+
+	.landing_btn {
+		width: 100%;
+		height: 30px;
+		padding: 10px;
+		margin-top: 5%;
+		font-weight: bold;
+	}
+
+	.section1 {
+		background-color: white;
+		margin: 0;
+
+	}
+</style>
+
+</html>
