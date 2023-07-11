@@ -117,6 +117,7 @@ urlpatterns = [
     path('all_events/',views.all_events, name='all_events'),
     path('add_event/',views.add_event, name='add_event'),
     path('update/',views.update, name='update'),
+    path('remove/',views.remove, name='remove'),
 
     path('patient_list/', views.patient_list, name='patient_list'),
     path('add_patient/', views.add_patient, name='add_patient'),
