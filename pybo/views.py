@@ -1179,6 +1179,9 @@ def animalContest(request,category_name='animal_ranking'):
     else:
         question_list = question_list.order_by('-create_date')
 
+    
+    
+
     # 검색
     if kw:
         question_list = question_list.filter(
@@ -1194,8 +1197,11 @@ def animalContest(request,category_name='animal_ranking'):
     page_obj = paginator.get_page(page)
     max_index = len(paginator.page_range)
 
+    top_3_questions = question_list.order_by('-voter_count')[:3]  # voter_count 필드를 기준으로 정렬
+
+
     context = {'question_list': page_obj, 'max_index': max_index, 'page': page, 'kw': kw, 'so': so,
-               'category_list': category_list, 'category': category, 'animal':animal}
+               'category_list': category_list, 'category': category, 'animal':animal, 'top_3_questions' : top_3_questions}
     return render(request, 'pybo/animal_contest.html', context)
 
 
