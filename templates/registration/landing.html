@@ -8,11 +8,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Landing_Page</title>
+	<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
 </head>
 
 <body>
+
 
 	<div class="container">
 		<div class="main_container">
@@ -47,60 +50,140 @@
 					</ul>
 
 				</nav>
-				<div class="landing_text" style=" margin-top: 50px; font-size: 35px; float: left;">
-					<h1>Animal Community</h1>
-					<p style="font-size: 15px;">This website is a pet diagnosis and community service, <br>and you can
-						get
-						access to many community functions!</p>
-					<a class="nav-link" href="{% url 'common:login' %}">
+				<div class="section0">
+					<div class="landing_text" style=" margin-top: 50px; font-size: 35px; float: left;">
+						<h1>Animal Community</h1>
+						<p style="font-size: 15px;">This website is a pet diagnosis and community service, <br>and you
+							can
+							get
+							access to many community functions!</p>
+						<a class="nav-link" href="{% url 'common:login' %}">
 
-						<button type="submit" class="landing_btn"
-							style="width: 100%; background-color: white; border: none; border-radius: 10px;">
-							Login
-						</button>
-					</a>
-					<a class="nav-link" href="{% url 'common:signup'  %}">
+							<button type="submit" class="landing_btn"
+								style="width: 100%; background-color: white; border: none; border-radius: 10px;">
+								Login
+							</button>
+						</a>
+						<a class="nav-link" href="{% url 'common:signup'  %}">
 
-						<button type="submit" class="landing_btn"
-							style="width: 100%; background-color: white; border: none; border-radius: 10px;">
-							Sign-up
-						</button>
-					</a>
-				</div>
+							<button type="submit" class="landing_btn"
+								style="width: 100%; background-color: white; border: none; border-radius: 10px;">
+								Sign-up
+							</button>
+						</a>
+					</div>
 
-				<div class="cat_img">
-					<img src="{% static 'img/landing.png' %}" style="width: 100%; margin-bottom: auto;">
+					<div class="cat_img" data-aos="fade-in" data-aos-duration="2000">
+						<div style=" position: relative; z-index: 1;">
+							<img src="{% static 'img/landing.png' %}" style="width: 85%;">
+						</div>
+						<div style="position: absolute; top: 100px; z-index: 0;">
+							<img src="{% static 'img/eclip.png' %}" style="width: 100%; ">
+						</div>
+
+					</div>
 				</div>
 			</section>
 
 
+
 			<section>
 
-				<div class="section1" data-aos="fade-in"  data-aos-duration="4000">
-					<p style="font-size: 50px; font-weight: 700; text-align: left; color: black;">Get a free online
-						diagnosis service <br> with a professional veterinarian
+				<div class="section1">
+
+					<p style="font-size: 50px; font-weight: 700; text-align: left; color: black;">Online
+						diagnosis service <br> with a professional <br> veterinarian for free!!<br>
+						<a href="{% url 'common:login' %}">
+							<button class="Go_btn" style="bottom: 10%; ">Go!</button>
+
+						</a>
 					</p>
+					<div style="display: flex; position: relative;	" data-aos="fade-in" data-aos-duration="3000">
+
+						<div class="card1_img" style="position: absolute; margin-left: 350px;">
+							<img src="{% static 'img/Card1.png' %}" style="width: 80%;">
+						</div>
+
+						<div class="card1_img" style="position: absolute; margin-left: 600px; top: -200px;">
+							<img src="{% static 'img/Card2.png' %}" style="width: auto;">
+						</div>
+						<div class="card1_img" style="position: absolute; right: 10px;">
+							<img src="{% static 'img/Card3.png' %}" style="width: 90%;">
+						</div>
+					</div>
 
 				</div>
 			</section>
 
 			<section>
-				<div>
-					vdsvdssdvsvd
+
+				<div class="portfolio">
+					<h4 style="font-size: 30px;">What we can DO</h4>
+					<div class="portfolio-container">
+
+
+						<a href="{% url 'pybo:expert' %}">
+							<div class="portfolio-item1">
+								<div class="white-box"></div>
+								<div class="portfolio-text">
+									<h4>Diagnosis</h4>
+									<p>Get a diagnosis from a professional veterinarian online!</p>
+								</div>
+							</div>
+						</a>
+						<a href="{% url 'pybo:calendar' %}">
+
+							<div class="portfolio-item2">
+								<div class="white-box"></div>
+								<div class="portfolio-text">
+									<h4>Training schedule</h4>
+									<p>Use open ai to schedule your pet's training!</p>
+								</div>
+							</div>
+						</a>
+
+						<a href="{% url 'pybo:animalcontest' 'animal_ranking' %}">
+
+							<div class="portfolio-item3">
+								<div class="white-box"></div>
+
+								<div class="portfolio-text">
+									<h4>Contest</h4>
+									<p>Show off your cute pet to others! And make it into the top 3!</p>
+								</div>
+							</div>
+						</a>
+						<a href="{% url 'pybo:dangbti' %}">
+
+						<div class="portfolio-item4">
+							<div class="white-box"></div>
+
+							<div class="portfolio-text">
+								<h4>MBTI</h4>
+								<p>Find out your pet's personality type!</p>
+							</div>
+						</div>
+						</a>
+					</div>
 				</div>
 			</section>
 
-			<section>
+
+
+
+			<!-- <section>
 				<div>
 					vdsvdssdvsvd
 				</div>
-			</section>
+			</section> -->
 
 		</div>
 	</div>
 
 
+
 	<script>
+
 
 		window.addEventListener('load', function () {
 			var fadeElems = document.querySelectorAll('.cat_img');
@@ -123,11 +206,13 @@
 		init();
 
 
+
+
 	</script>
-	<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 	<script>
 		AOS.init();
 	</script>
+
 </body>
 <style>
 	html,
@@ -136,7 +221,6 @@
 		height: 100%;
 		font-family: sans-serif;
 		scroll-snap-type: mandatory;
-		scroll-snap-points-y: repeat(100vh);
 		scroll-snap-type: y mandatory;
 	}
 
@@ -155,6 +239,7 @@
 		scroll-snap-align: start;
 		/* text-align: center; */
 		position: relative;
+
 	}
 
 
@@ -184,9 +269,8 @@
 	}
 
 	.cat_img {
+		position: relative;
 		height: 50px;
-		opacity: 0;
-		transition: opacity 1s ease-in;
 		/* display: inline-block; */
 		float: right;
 
@@ -194,22 +278,158 @@
 	}
 
 	.cat_img.loaded {
-		opacity: 1;
 		width: 500px;
 
 	}
 
 	.landing_btn {
-		width: 100%;
+		width: 90%;
 		height: 30px;
 		padding: 10px;
 		margin-top: 5%;
 		font-weight: bold;
 	}
 
+	.landing_btn :hover {
+		color: #5429FF;
+	}
+
+	.landing_btn:active {
+		background-color: #5429FF;
+	}
+
+	.nav-link :hover {
+		color: #5429FF;
+
+	}
+
 	.section1 {
 		background-color: white;
 		margin: 0;
+
+
+	}
+
+	.portfolio {
+		padding-top: 30px;
+		padding-bottom: 60px;
+		text-align: center;
+		color: black;
+	}
+
+	.portfolio-item1 {
+		position: relative;
+		float: left;
+		width: 50%;
+		height: 300px;
+		background-size: cover;
+		color: black;
+		background-color: aliceblue;
+
+	}
+
+	.portfolio-item2 {
+		position: relative;
+
+		float: left;
+		width: 50%;
+		height: 300px;
+		background-size: cover;
+		color: black;
+		background-color: antiquewhite;
+
+	}
+
+	.portfolio-item3 {
+		position: relative;
+
+		float: left;
+		width: 50%;
+		height: 300px;
+		background-size: cover;
+		color: black;
+		background-color: aqua;
+
+	}
+
+	.portfolio-item4 {
+		position: relative;
+
+		float: left;
+		width: 50%;
+		height: 300px;
+		background-size: cover;
+		color: black;
+		background-color: azure;
+
+	}
+
+	.white-box {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+		border: 0px solid white;
+	}
+
+	.white-box:hover {
+		border: 30px solid white;
+		transition: 0.5s
+	}
+
+
+	.portfolio-container {
+		text-align: left;
+		max-width: 1200px;
+		margin: auto;
+		color: black;
+
+	}
+
+	.portfolio-text {
+		color: white;
+		padding: 50px;
+		width: 100%;
+		color: black;
+
+
+	}
+
+	.Go_btn {
+		width: 20%;
+		height: 30px;
+		padding: 10px;
+		background-color: #5429FF;
+		color: white;
+		border-radius: 10px;
+		text-align: center;
+		border: none;
+	}
+
+
+
+
+	@media screen and (max-width : 1200px) {
+		.cat_img {
+			position: relative;
+			bottom: 100px;
+			width: 45%;
+
+
+
+
+		}
+
+		.section1 {
+			background-color: white;
+
+		}
+
+		.portfolio-item1 .portfolio-item2 .portfolio-item3 .portfolio-item4 {
+			float: none;
+			width: 100%;
+		}
+
 
 	}
 </style>
