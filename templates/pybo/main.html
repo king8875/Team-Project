@@ -119,50 +119,38 @@
   <!-- 프로필 카드 컴포넌트 끝 -->
 
   <!-- 금주의 댕콘테스트 컴포넌트  -->
+ 
   <div class="weekly-dogs" style="width: calc(100% - 15rem - 10px); height: calc(2/3 * 300px); display: flex; gap: 17px;">
-    <div style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; width: 50%; ">
-      <div class="d-flex align-items-stretch shadow-box" style="display: flex; height: 100%;">
-        <div class="box-content" style="width: 50%;">
-          <div class="left-content">
-            <h3>1st</h3>
-            <p>Here is some text for 1st.</p>
+
+    {% if question_list1 %}
+      {% for question in question_list1 %}
+          
+
+
+
+          <div style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; width: 50%;">
+            <div class="d-flex align-items-stretch shadow-box" style="display: flex; height: 100%;">
+              <div class="box-content" style="width: 50%;">
+                <div class="left-content">
+                  <h3>1st</h3>
+                  <p>Here is some text</p>
+                </div>
+              </div>
+              {% if question.thumbnail %}
+              <div class="box-content" style="width: 50%;">
+                <div class="right-content" style="background-image: url('{{ question.thumbnail.url }}'); background-size: cover; background-position: center; width: 100%; height: 100%; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                </div>
+              </div>
+              {% endif %}
+            </div>
           </div>
-        </div>
-        <div class="box-content" style="width: 50%;">
-          <div class="right-content" style="background-image: url('../../static/img/puppy_1.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; width: 50%; ">
-      <div class="d-flex align-items-stretch shadow-box" style="display: flex; height: 100%;">
-        <div class="box-content" style="width: 50%;">
-          <div class="left-content">
-            <h3>2nd</h3>
-            <p>Here is some text for 1st.</p>
-          </div>
-        </div>
-        <div class="box-content" style="width: 50%;">
-          <div class="right-content" style="background-image: url('../../static/img/puppy_1.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; width: 50%; ">
-      <div class="d-flex align-items-stretch shadow-box" style="display: flex; height: 100%;">
-        <div class="box-content" style="width: 50%;">
-          <div class="left-content">
-            <h3>3th</h3>
-            <p>Here is some text for 1st.</p>
-          </div>
-        </div>
-        <div class="box-content" style="width: 50%;">
-          <div class="right-content" style="background-image: url('../../static/img/puppy_1.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
-          </div>
-        </div>
-      </div>
-    </div>
+
+
+      {% endfor %}
+  {% endif %}
+    
   </div>
+
   
 </div>
 <!-- 금주의 댕콘테스트 컴포넌트 끝 -->

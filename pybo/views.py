@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
-from .models import Question, Answer, Category, Expert_Category, Expert, Expert_answer, Pet
+from .models import Question, Answer, Category, Expert_Category, Expert, Expert_answer, Pet, animal_ranking_Category
 from django.utils import timezone
 from django.http import HttpResponse
 from .forms import QuestionForm , AnswerForm, ExpertForm, ExpertAnswerForm,PetForm
@@ -67,6 +67,21 @@ def main(request, category_name='expert'):
     category = get_object_or_404(Expert_Category, name=category_name)
     question_list = Expert.objects.filter(category=category)
     ###expert_list변경
+
+    page1 = request.GET.get('page1', '1')  # 페이지
+    kw1 = request.GET.get('kw1', '')  # 검색어
+    so1 = request.GET.get('so1', 'recent')  # 정렬기준
+
+    animal = animal_ranking.objects.all()
+    category_list1 = animal_ranking_Category.objects.all()
+    category1 = get_object_or_404(animal_ranking_Category)
+    question_list1 = animal_ranking.objects.filter(category=category1)
+
+    if so1 == 'recent':
+        # aggretation, annotation에는 relationship에 대한 역방향 참조도 가능 (ex. Count('voter'))
+         question_list1 = question_list1.order_by('-create_date')
+
+
     # 정렬
     if so == 'recommend':
         # aggretation, annotation에는 relationship에 대한 역방향 참조도 가능 (ex. Count('voter'))
@@ -91,8 +106,14 @@ def main(request, category_name='expert'):
     page_obj = paginator.get_page(page)
     max_index = len(paginator.page_range)
 
+    paginator1 = Paginator(question_list1,3)  # 페이지당 10개식 보여주기
+    page_obj1 = paginator1.get_page(page)
+    max_index1 = len(paginator.page_range)
+
     context = {'question_list': page_obj, 'max_index': max_index, 'page': page, 'kw': kw, 'so': so,
-               'category_list': category_list, 'category': category, 'expert':expert}
+               'category_list': category_list, 'category': category, 'expert':expert, 
+               'question_list1': page_obj1, 'max_index1': max_index1, 'page1': page1, 'kw1': kw1, 'so1': so1,
+               'category_list1': category_list1, 'category1': category1, 'animal':animal}
     
     return render(request, 'pybo/main.html', context)
 
@@ -1270,3 +1291,78 @@ def animal_vote(request, question_id):
     
     question.voter.add(request.user)
     return redirect('pybo:animalcontest', category_name='animal_ranking')
+
+
+
+import re
+@login_required(login_url='common:login')
+def train_gpt(request):
+    author = request.user
+    openai.api_key = "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"
+
+   
+    if request.method == "POST":
+        #prompt = input("알렉산더 : ")
+        
+        #prompt = "오늘의 날짜는 2023년 7월 11일이고 내일의 날짜는 2023년 7월 12일이야. 일주일간의 반려동물 훈련 일정을 작성하되 훈련 시작일을 내일을 기준으로 줄바꿈('\n') 없이 start = Y-MM-DD HH:mm:ss, 훈련 내용을 title = 훈련내용, 훈련 종료일을 end = Y-MM-DD HH:mm:ss이런 형식으로 일주일치를 작성해줘. 이때 /n(줄바꿈)은 안써도 돼"
+        prompt = "남도일에 관한 50글자 분량의 수필 작성해줘"
+        print(prompt)
+        response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt = prompt,
+        #prompt="I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: What is human life expectancy in the United States?\nA: Human life expectancy in the United States is 78 years.\n\nQ: Who was president of the United States in 1955?\nA: Dwight D. Eisenhower was president of the United States in 1955.\n\nQ: Which party did he belong to?\nA: He belonged to the Republican Party.\n\nQ: What is the square root of banana?\nA: Unknown\n\nQ: How does a telescope work?\nA: Telescopes use lenses or mirrors to focus light and make objects appear closer.\n\nQ: Where were the 1992 Olympics held?\nA: The 1992 Olympics were held in Barcelona, Spain.\n\nQ: How many squigs are in a bonk?\nA: Unknown\n\nQ: Where is the Valley of Kings?\nA:",
+        temperature=1,
+        max_tokens=3700,
+        #top_p=1,
+        #frequency_penalty=0.0,
+        #presence_penalty=0.0,
+        #stop=["\n"]
+        )
+        #context = {'traingpt' : response["choices"][0]["text"].strip()}
+        context = {'traingpt' : response["choices"][0]["text"].strip()}
+        print(context)
+
+        """response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt = prompt,
+        #prompt="I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: What is human life expectancy in the United States?\nA: Human life expectancy in the United States is 78 years.\n\nQ: Who was president of the United States in 1955?\nA: Dwight D. Eisenhower was president of the United States in 1955.\n\nQ: Which party did he belong to?\nA: He belonged to the Republican Party.\n\nQ: What is the square root of banana?\nA: Unknown\n\nQ: How does a telescope work?\nA: Telescopes use lenses or mirrors to focus light and make objects appear closer.\n\nQ: Where were the 1992 Olympics held?\nA: The 1992 Olympics were held in Barcelona, Spain.\n\nQ: How many squigs are in a bonk?\nA: Unknown\n\nQ: Where is the Valley of Kings?\nA:",
+        temperature=1,
+        max_tokens=3700,
+        #top_p=1,
+        #frequency_penalty=0.0,
+        #presence_penalty=0.0,
+        #stop=["\n"]
+        )
+        context = {'question_list': response["choices"][0]["text"].strip()}
+        return render(request, 'pybo/alexander_list.html',context)#, context)"""
+
+
+        """print(context)
+        context = str(context)
+        matches = re.findall(r"start\s*=\s*([^,]+),\s*title\s*=\s*([^,]+),\s*end\s*=\s*([^,\n]+)", context)
+
+        start1 = [match[0].strip() for match in matches]
+        title1 = [match[1].strip() for match in matches]
+        end1 = [re.sub(r"\\nstart\s*=\s*([^,]+),?\s*", "", match[2].strip()) for match in matches]
+        #end1 = [re.sub(r"[^0-9: ]", "", match[2].strip()).replace('  ', ', ') for match in matches]
+        #event = Events(name=str(title), start=start, end=end, author = author)
+        #Y-MM-DD HH:mm:ss
+        #event.save()
+        print(start1)
+        print(title1)
+        print(end1)
+        combined_list = list(zip(start1, title1, end1))
+        for j in range(len(combined_list)):
+            start = combined_list[j][0]
+            title = combined_list[j][1]
+            end = combined_list[j][2]
+            event = Events(name=str(title), start=start, end=end, author = author)
+            print(j)
+            event.save()"""
+       
+        
+        return render(request, 'pybo/calendar.html', context)#, context)
+        
+    else:
+        print("get")
+        return render(request, 'pybo/calendar.html')#, context)

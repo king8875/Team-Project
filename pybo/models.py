@@ -218,6 +218,3 @@ class animal_ranking(models.Model):
 
     def __str__(self):
         return self.subject      ###models.py####
-    def save(self, *args, **kwargs):
-        self.voter_count = self.voter.count()  # voter 수를 업데이트
-        super().save(*args, **kwargs)
