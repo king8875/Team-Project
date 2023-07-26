@@ -24,6 +24,10 @@ urlpatterns = [
     path('expert/modify/<int:question_id>/', views.expert_modify, name='expert_modify'),
     path('expert/answer/modify/<int:answer_id>/', views.expert_answer_modify, name='expert_answer_modify'),
     path('expert/question/delete/<int:question_id>/', views.expert_delete, name='expert_delete'),
+    path('question_delete/<int:question_id>/', views.question_delete, name='question_delete'),
+
+
+
     path('question/modify/<int:question_id>/', views.question_modify, name='question_modify'),
     path('index/', views.index, name='index'),
     path('', views.main, name='main'),
