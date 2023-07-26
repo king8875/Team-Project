@@ -209,7 +209,7 @@ def index3(request, category_name='qna'):
 
 
 def index2(request):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
    
     if request.method == "POST":
@@ -308,7 +308,7 @@ def question_create(request, category_name):
             question.create_date = timezone.now()
             question.category = category
             question.save()
-            #return redirect(category)
+            return redirect(category)
             
     else:  # request.method == 'GET'
         form = QuestionForm()
@@ -1298,14 +1298,17 @@ import re
 @login_required(login_url='common:login')
 def train_gpt(request):
     author = request.user
-    openai.api_key = "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"
+    openai.api_key = "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"
 
    
     if request.method == "POST":
         #prompt = input("알렉산더 : ")
         
         #prompt = "오늘의 날짜는 2023년 7월 11일이고 내일의 날짜는 2023년 7월 12일이야. 일주일간의 반려동물 훈련 일정을 작성하되 훈련 시작일을 내일을 기준으로 줄바꿈('\n') 없이 start = Y-MM-DD HH:mm:ss, 훈련 내용을 title = 훈련내용, 훈련 종료일을 end = Y-MM-DD HH:mm:ss이런 형식으로 일주일치를 작성해줘. 이때 /n(줄바꿈)은 안써도 돼"
-        prompt = "남도일에 관한 50글자 분량의 수필 작성해줘"
+        pet_age = request.POST.get('pet-age','')
+        pet_type = request.POST.get('pet-type','')
+        #prompt = "오늘의 날짜는 2023년 7월 11일이고 내일의 날짜는 2023년 7월 12일이야. 일주일간의 반려동물 훈련 일정을 작성하되 훈련 시작일을 내일을 기준으로 줄바꿈('\n') 없이 start = Y-MM-DD HH:mm:ss, 훈련 내용을 title = 훈련내용, 훈련 종료일을 end = Y-MM-DD HH:mm:ss이런 형식으로 일주일치를 작성해줘. 이때 /n(줄바꿈)은 안써도 돼"
+        prompt = pet_type+"과의 "+pet_age+"에 관한 하루치의 훈련 일정을 50글자 내외로 나눠서 만들어줘 근데 1.으로 시작해줘"
         print(prompt)
         response = openai.Completion.create(
         model="text-davinci-003",
