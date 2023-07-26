@@ -10,17 +10,17 @@
 <div class="col-lg-10" style=" margin-top:1%; ">
     <p class="d-flex justify-content-between">
         <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          GPT 훈련 일정 보기
+            GPT 훈련 일정 보기
         </button>
         <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-bs-toggle="modal" data-bs-target="#addTraning">
             훈련일정 만들기
         </button>
-        
-            
     </p>
+    <!-- 훈련 일정 출력 -->
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
-          훈련 일정은 다음과 같습니다.
+            <h5>훈련 일정은 다음과 같습니다.</h5>
+            {{ traingpt }}
         </div>
     </div>
 
@@ -44,9 +44,12 @@
                 <h5 class="modal-title" id="addTraningLabel">훈련 일정 생성</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
                 <h5 class="my-3 border-bottom pb-2">체크 사항</h5>
                 
+                <!-- form 요소 추가 -->
+                <form method="post" action="{% url 'pybo:train_gpt' %}">
+                    {% csrf_token %}
 
                     <div class="form-group">
                         <label for="pet-type">반려동물의 종류</label>
@@ -62,12 +65,12 @@
                             <option value="1">예절훈련</option>
                             <option value="2">배변훈련</option>
                             <option value="3">사회성훈련</option>
-
                             <!-- 나머지 나이 옵션들을 추가하세요 -->
                         </select>
                     </div>
 
                     <button type="submit" class="btn btn-primary">저장하기</button>
+                </form>
                 
             </div>
         </div>

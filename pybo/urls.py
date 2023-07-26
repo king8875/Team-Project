@@ -57,7 +57,7 @@ urlpatterns = [
     #path('animal/ranking/', views.animalRanking, name='animal_ranking'),
     path('animal/write/<str:category_name>', views.animalWrite, name='animal_write'),
     path('animal/vote/<int:question_id>/', views.animal_vote, name='animal_vote'),
-
+    path('train_gpt/', views.train_gpt, name='train_gpt'),
     
 
     # 1. Channel-Community
