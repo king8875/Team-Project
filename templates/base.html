@@ -1,197 +1,223 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
+
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- <form method ="post"></form> -->
-    <!-- Bootstrap CSS -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <title>Hello, pybo!</title>
-    <style>
-
-		.nav-item {
-			margin-bottom: 3%;
-		}
-	
-		#sidebarMenu {
-		min-height: 100vh;
-		background-color: #fff;
-		
-		
-	  }
-	
-	  .nav-link {
-		color:black; 
-		font-weight: 600;
-	  }
-	  
-	  /* Set the active menu item style */
-	  .nav-link.active {
-		color: #fff;
-		background-color: #5429ff;
-	  }
-	  
-	  /* Set the sub-menu style */
-	  #communitySubmenu {
-		padding-left: 1rem;
-	  }
-	  
-	  /* Adjust the icon position */
-	  .bi {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 2rem;
-		height: 2rem;
-		margin-right: 0.5rem;
-	  }
-	  
-	  /* Set the logout icon color */
-	  .bi.bi-box-arrow-right {
-		color: red;
-	  }
-    .carousel{
-        background-color: aliceblue;
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- <form method ="post"></form> -->
+  <!-- Bootstrap CSS -->
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <title>Hello, pybo!</title>
+  <style>
+    .nav-item {
+      margin-bottom: 3%;
     }
-	  </style>
+
+    #sidebarMenu {
+      min-height: 100vh;
+      background-color: #fff;
+
+
+    }
+
+    .nav-link {
+      color: black;
+      font-weight: 600;
+    }
+
+    /* Set the active menu item style */
+    .nav-link.active {
+      color: #fff;
+      background-color: #5429ff;
+    }
+
+    /* Set the sub-menu style */
+    #communitySubmenu {
+      padding-left: 1rem;
+    }
+
+    /* Adjust the icon position */
+    .bi {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      margin-right: 0.5rem;
+    }
+
+    /* Set the logout icon color */
+    .bi.bi-box-arrow-right {
+      color: red;
+    }
+
+    .carousel {
+      background-color: aliceblue;
+    }
+    a:hover{
+      color: #5429ff;
+    }
+  </style>
 
 
 
-    
+
 </head>
+
 <body>
-<!--************************ 헤더바 **********************************--> 
-<div>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFFFFF; margin-top: 1%; margin-right: 1%; margin-left: 1%; border-radius: 10px; box-shadow : 0px 4px 4px rgba(0, 0, 0, 0.25);">
-		<div class="container-fluid">
-		  <a class="navbar-brand" href="{% url 'pybo:main' %}"style="margin-left: 2%;">
-			<img src="{%static 'img/logo.png' %}" alt="Logo" height="30">
-		  </a>
-		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav ms-auto ">
-				
-				  <li class="nav-item dropdown  me-3">
-					<a class="nav-link dropdown-toggle-no-create" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ user.username }}
-                        <img src="{%static 'img/user.png' %}" width="45px" />
-		
-					</a>
-					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-					  <li><a class="dropdown-item" href="{% url 'pybo:user_profile' %}">마이페이지</a></li>
+  <!--************************ 헤더바 **********************************-->
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-light"
+      style="background-color: #FFFFFF; margin-top: 1%; margin-right: 1%; margin-left: 1%; border-radius: 10px; box-shadow : 0px 4px 4px rgba(0, 0, 0, 0.25);">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'pybo:main' %}" style="margin-left: 2%;">
+          <img src="{%static 'img/logo.png' %}" alt="Logo" height="30">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto ">
 
-					  <li><a class="dropdown-item" href="#">로그아웃</a></li>
-					</ul>
-				  </li>
-			
-			</ul>
-		  </div>
-		</div>
-	  </nav>
-</div>
+            <li class="nav-item dropdown  me-3">
+              <a class="nav-link dropdown-toggle-no-create" href="#" id="navbarDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.username }}
+                <img src="{%static 'img/user.png' %}" width="45px" />
 
-<div class="container-fluid" >
-    <div class="row" >
-        <div class="col-sm-12 col-md-3 col-lg-2 d-md-block sidebar collapse" style="margin-top: 0.5%;">
-            <nav id="sidebarMenu"  style="margin-top: 2%; margin-left: 2%; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; height: 100%;">
-                <div class="position-sticky pt-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="{% url 'pybo:main' %}">
-                        <i class="bi bi-house-door-fill"></i>
-                        Home
-                    </a>
-                    </li>
-        
-                    <li class="nav-item ">
-                        <a class="nav-link" href="{% url 'pybo:expert' %}" >
-                            <i class="bi bi-postcard"></i>
-                        Dashboard
-                        </a>
-                    </li>
-        
-             
-                    <li class="nav-item ">
-                      <a class="nav-link" href="{% url 'pybo:index' %}">
-                        <i class="bi bi-chat-right-dots"></i>
-                          질문과 답변
-                      </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pybo:animalcontest' 'animal_ranking' %}">
-                      <i class="bi bi-file-music"></i>
-                      Dang 콘테스트
-                    </a>
-                  </li>
-        
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'pybo:calendar' %}">
-                            <i class="bi bi-calendar"></i>
-                        훈련 Calender
-                        </a>
-                    </li>
-        
-                    <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pybo:dangbti' %}">
-                        <i class="bi bi-controller"></i>
-                        MBTI
-                    </a>
-                    </li>
-        
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'pybo:index2' %}">
-                            <i class="bi bi-clipboard2-pulse"></i>
-                            GPT Diagnostics
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'pybo:forumGroup' %}">
-                          <i class="bi bi-clipboard2-pulse"></i>
-                          Forum
-                        
-                        </a>
-                  </li>
-        
-                  
-        
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'pybo:user_profile' %}">
-                            <i class="bi bi-gear"></i>
-                        Setting
-                        </a>
-                    </li>
-        
-                    <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pybo:logout' %}">
-                        <i class="bi bi-box-arrow-right"></i>
-                        Logout
-                    </a>
-                    </li>
-        
+              </a>
+              {% if request.user.is_authenticated %}
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'pybo:user_profile' %}">마이페이지</a></li>
+                  <li><a class="dropdown-item" href="{% url 'pybo:logout' %}">로그아웃</a></li>
                 </ul>
-                </div>
-          </nav>
-        </div>
-        
-        {% block content %}
+              {% else %}
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'common:login' %}">로그인</a></li>
+                </ul>
+              {% endif %}
+            </li>
 
-        {% endblock %}
-      
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-3 col-lg-2 d-md-block sidebar collapse" style="margin-top: 0.5%;">
+        <nav id="sidebarMenu"
+          style="margin-top: 2%; margin-left: 2%; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; height: 100%;">
+          <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="{% url 'pybo:main' %}">
+                  <i class="bi bi-house-door-fill"></i>
+                  Home
+                </a>
+              </li>
+
+              <li class="nav-item ">
+                <a class="nav-link" href="{% url 'pybo:expert' %}">
+                  <i class="bi bi-postcard"></i>
+                  Dashboard
+                </a>
+              </li>
+
+
+              <li class="nav-item ">
+                <a class="nav-link" href="{% url 'pybo:index' %}">
+                  <i class="bi bi-chat-right-dots"></i>
+                  질문과 답변
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pybo:animalcontest' 'animal_ranking' %}">
+                  <i class="bi bi-file-music"></i>
+                  Dang 콘테스트
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pybo:calendar' %}">
+                  <i class="bi bi-calendar"></i>
+                  훈련 Calender
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pybo:dangbti' %}">
+                  <i class="bi bi-controller"></i>
+                  MBTI
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pybo:index2' %}">
+                  <i class="bi bi-clipboard2-pulse"></i>
+                  GPT Diagnostics
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pybo:forumGroup' %}">
+                  <i class="bi bi-clipboard2-pulse"></i>
+                  Forum
+
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pybo:landing_page' %}">
+                  <i class="bi bi-clipboard2-pulse"></i>
+                  About
+
+                </a>
+              </li>
+
+
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pybo:user_profile' %}">
+                  <i class="bi bi-gear"></i>
+                  Setting
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pybo:logout' %}">
+                  <i class="bi bi-box-arrow-right"></i>
+                  Logout
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      {% block content %}
+
+      {% endblock %}
+
     </div>
   </div>
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <p class="col-md-4 mb-0 text-body-secondary">© 2023 Company, Inc</p>
 
-    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+    <a href="/"
+      class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <svg class="bi me-2" width="40" height="32">
+        <use xlink:href="#bootstrap"></use>
+      </svg>
     </a>
 
     <ul class="nav col-md-4 justify-content-end">
@@ -203,46 +229,47 @@
     </ul>
   </footer>
 
-<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+  <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 
 
-<!-- 기본 템플릿 안에 삽입될 내용 End -->
-<!-- Bootstrap JS -->
+  <!-- 기본 템플릿 안에 삽입될 내용 End -->
+  <!-- Bootstrap JS -->
 
-<!-- 자바스크립트 Start -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-<script>
-  const links = document.querySelectorAll('.nav-link');
-  const sidebarMenu = document.querySelector('#sidebarMenu');
+  <!-- 자바스크립트 Start -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const links = document.querySelectorAll('.nav-link');
+    const sidebarMenu = document.querySelector('#sidebarMenu');
 
-  // 각 메뉴 아이템에 클릭 이벤트 리스너 등록
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      // 현재 active 클래스를 가진 메뉴 아이템의 active 클래스 제거
-      const active = document.querySelector('.nav-link.active');
-      if (active) {
-        active.classList.remove('active');
-      }
+    // 각 메뉴 아이템에 클릭 이벤트 리스너 등록
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        // 현재 active 클래스를 가진 메뉴 아이템의 active 클래스 제거
+        const active = document.querySelector('.nav-link.active');
+        if (active) {
+          active.classList.remove('active');
+        }
 
-      // 클릭한 메뉴 아이템에 active 클래스 추가
-      link.classList.add('active');
+        // 클릭한 메뉴 아이템에 active 클래스 추가
+        link.classList.add('active');
+      });
     });
-  });
 
-  // 메뉴 영역 외의 클릭 이벤트를 감지하여 active 클래스 제거
-  document.addEventListener('click', event => {
-    if (!sidebarMenu.contains(event.target)) {
-      const active = document.querySelector('.nav-link.active');
-      if (active) {
-        active.classList.remove('active');
+    // 메뉴 영역 외의 클릭 이벤트를 감지하여 active 클래스 제거
+    document.addEventListener('click', event => {
+      if (!sidebarMenu.contains(event.target)) {
+        const active = document.querySelector('.nav-link.active');
+        if (active) {
+          active.classList.remove('active');
+        }
       }
-    }
-  });
-</script>
+    });
+  </script>
 
 
-{% block script %}
-{% endblock %}
-<!-- 자바스크립트 End -->
+  {% block script %}
+  {% endblock %}
+  <!-- 자바스크립트 End -->
 </body>
+
 </html>

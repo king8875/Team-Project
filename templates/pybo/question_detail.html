@@ -58,7 +58,7 @@
     {% for photo in post.photo_set.all%}
     <img src="{{photo.image}}" width="50"><br>
     {% endfor %}
-    <h5 class="border-bottom my-3 py-2">{{question.answer_set.count}}개의 답변이 있습니다.</h5>
+    <h5 class="border-bottom my-3 py-2"> {{question.answer_set.count}} comment</h5>
     {% for answer in question.answer_set.all %}
     <a id="answer_{{ answer.id }}"></a>
     <div class="card my-3">
@@ -113,7 +113,7 @@
             <textarea {% if not user.is_authenticated %}disabled{% endif %}
               name="content" id="content" class="form-control" rows="10"></textarea>
         </div>
-        <input type="submit" value="답변등록" class="btn btn-primary">
+        <input type="submit" value="답변등록" class="btn btn-primary" style="background-color: #5429FF; color: white; border: none; float: right;">
     </form>
 </div>
 </div>

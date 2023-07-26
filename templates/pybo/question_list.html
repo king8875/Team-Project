@@ -12,11 +12,11 @@
     <div class="container my-3" >
         <table class="table">
             <thead>
-            <tr class="text-center table-dark">
-                <th>번호</th>
-                <th style="width:50%">제목을</th>
-                <th>글쓴이</th>
-                <th>작성일시</th>
+            <tr class="text-center" style="background-color: #5429FF; color: white; border-radius: 10px;">
+                <th>Number</th>
+                <th style="width:50%">Title</th>
+                <th>Username</th>
+                <th>Date</th>
             </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
                     {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
                 </td>
                 <td class="text-start">
-                    <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                    <a href="{% url 'pybo:detail' question.id %}" style="text-decoration: none; color: black;">{{ question.subject }}</a>
                     {% if question.answer_set.count > 0 %}
                     <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
         {% endif %}
@@ -44,6 +44,8 @@
             {% endif %}
             </tbody>
         </table>
+        <a href="{% url 'pybo:question_create' category.name %}" class="btn btn-primary" style="background-color: #5429FF; color: white; float: right; border: none; ">질문 등록하기</a> 
+
         <!-- 페이징처리 시작 -->
         <ul class="pagination justify-content-center">
             <!-- 이전페이지 -->
@@ -82,7 +84,6 @@
             {% endif %}
         </ul>
         <!-- 페이징처리 끝 -->
-        <a href="{% url 'pybo:question_create' category.name %}" class="btn btn-primary">질문 등록하기</a> 
     </div>
     </div>
 </div>
