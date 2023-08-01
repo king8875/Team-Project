@@ -27,7 +27,7 @@ class ExpertForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
         }
         labels = {
-            'subject': '줴목',
+            'subject': '제목',
             'content': '내용',
             'thumbnail': '썸네일',
         } 
@@ -50,7 +50,7 @@ class ExpertAnswerForm(forms.ModelForm):
         model = Expert_answer
         fields = ['content']
         labels = {
-            'content': '뒙변내용',
+            'content': '답변내용',
         }
 
 class PetForm(forms.ModelForm):
@@ -63,7 +63,7 @@ class ForumQuestionForm(forms.ModelForm):
         model = ForumQuestion
         fields = ['subject', 'content', 'category','forumimg']
         labels = {
-            'subject': '줴목',
+            'subject': '제목',
             'content': '내용',
             'forumimg': '썸네일',
         } 
@@ -74,7 +74,7 @@ class ForumAnswerForm(forms.ModelForm):
         model = ForumAnswer
         fields = ['content']
         labels = {
-            'content': '뒙변내용',
+            'content': '답변내용',
         }
 
         
@@ -111,7 +111,7 @@ class animalForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
         }
         labels = {
-            'subject': '줴목',
+            'subject': '제목',
             'content': '내용',
             'thumbnail': '썸네일',
         } 
